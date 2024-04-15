@@ -1,7 +1,0 @@
-{
-    "emmet.includeLanguages": {
-        "\"django-html\"": "\"html\""
-    },
-    "chat.editor.wordWrap": "on",
-    "editor.wordWrap": "on"
-}
