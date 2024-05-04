@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import './App.css'
 import { TodoContextProvider } from "./Context";
 function App() {
@@ -14,6 +14,18 @@ function App() {
 
   const toggleComplete = (id) => { setTodos((todoArr) => todoArr.map((eachTodoObj) => eachTodoObj.id === id ? { ...eachTodoObj, complete: !eachTodoObj.complete } : eachTodoObj)); };
 
+  // Local Storage
+  // It is used to get Item from Local Storage. 
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    if (todos && todos.length > 0) {
+      setTodos(todos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
   return (
     <>
       <TodoContextProvider value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}>
