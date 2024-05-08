@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-// import './App.css'
 import { TodoContextProvider } from "./Context";
+import { TodoForm, TodoItem } from './Components';
 function App() {
   const [todos, setTodos] = useState([]);
-
-  const addTodo = (todo) => { setTodos((oldTodo) => [{ id: Date.now(), ...todo }, ...oldTodo]); };
+  const addTodo = (todo) => {
+    setTodos((oldTodo) => [{ id: Date.now(), ...todo }, ...oldTodo]);
+  };
 
   // eachTodo ==> object
 
@@ -12,7 +13,7 @@ function App() {
 
   const deleteTodo = (id) => { setTodos((todoArr) => todoArr.filter((eachTodoObj) => eachTodoObj.id !== id)); };
 
-  const toggleComplete = (id) => { setTodos((todoArr) => todoArr.map((eachTodoObj) => eachTodoObj.id === id ? { ...eachTodoObj, complete: !eachTodoObj.complete } : eachTodoObj)); };
+  const toggleComplete = (id) => { setTodos((todoArr) => todoArr.map((eachTodoObj) => eachTodoObj.id === id ? { ...eachTodoObj, completed: !eachTodoObj.completed } : eachTodoObj)); };
 
   // Local Storage
   // It is used to get Item from Local Storage. 
@@ -22,7 +23,7 @@ function App() {
       setTodos(todos);
     }
   }, []);
-
+  // todos ==> type of is a object, we have to pass string in localstorage
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -33,10 +34,18 @@ function App() {
           <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
             <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
             <div className="mb-4">
+              <TodoForm />
               {/* Todo form goes here */}
             </div>
             <div className="flex flex-wrap gap-y-3">
               {/*Loop and Add TodoItem here */}
+              {
+                todos.map((todo) => (
+                  <div className="w-full" key={todo.id}>
+                  <TodoItem todo={todo} />
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>
