@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import './App.css';
+import Accordian from './Components/Accordian';
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-     
-      <h1 className='bg-blue-600 text-center text-3xl text-white font-bold'>Vite + React</h1>
-     
-    </>
-  )
+    <main className='min-h-screen flex justify-center items-center flex-col bg-gray-200'>
+
+
+      <Accordian />
+
+    </main>
+  );
 }
 
-export default App
+export default App;
