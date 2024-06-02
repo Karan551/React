@@ -5,8 +5,10 @@
 }
 
 /* body{
-  background-color: #333;
-  color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 } */
 
 .main-container {
@@ -14,11 +16,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  min-height: 100vh;
+  min-width: 100vw;
 
 }
 
 .wrapper {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -68,19 +72,35 @@
   justify-content: center;
   margin: 1rem 0;
   width: 100%;
-  max-width: 800px;
-  width: 500px;
+  max-width: 900px;
+  width: 600px;
 }
 
-h3 {
- 
+.input-color-value {
+
   border: 2px solid #fff;
   padding: 10px 25px;
   border-radius: 20px 0 0 20px;
   width: 100%;
-
+  text-align: center;
+  font-size: 3rem;
+  background-color: transparent;
+  outline: none;
+  color: inherit;
 }
 
+::selection {
+  background-color: white;
+  color: #333;
+}
+
+button:disabled,
+button[disabled]:hover {
+  background-color: rgb(214, 213, 213);
+  /* opacity: 0.9; */
+  color: #f5f5f5;
+  cursor: not-allowed;
+}
 
 .copy-button {
   padding: 5px 10px;
@@ -93,10 +113,10 @@ h3 {
 }
 
 
-@media screen and (max-width:375px) {}
+/* @media screen and (max-width:375px) {} */
 
-@media screen and (max-width:615px) {
-  .main-container {
+@media screen and (max-width:640px) {
+  .wrapper {
     flex-direction: column;
     gap: 5px;
   }
