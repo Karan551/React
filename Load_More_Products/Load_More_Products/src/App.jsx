@@ -1,16 +1,18 @@
-import { useState } from 'react'
 
-import './App.css'
 
+
+import LoadProducts from './Components/LoadProducts';
+import "./App.css"
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-     <h1>Load More Products App</h1>
-     
+      <h1>Load More Products App</h1>
+      <LoadProducts limit={10} url={"https://dummyjson.com/products"} skip={20} />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
