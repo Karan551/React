@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button:disabled{
+  color:#333;
+  opacity: 0.856;
+  background-color:rgb(204 251 241);;
+  cursor: not-allowed;
+}
+button[disabled]:hover{
+  background-color: rgb(153 246 228);
+  cursor: not-allowed;
+}
+.typed-cursor{
+  color: rgb(249 115 22);
+}
