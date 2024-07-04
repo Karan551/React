@@ -1,4 +1,6 @@
+import { ModalParent } from "./Components";
 
+import "./index.css"
 
 
 function App() {
@@ -6,7 +8,8 @@ function App() {
 
   return (
     <>
-      <h1>Hello Mini Project</h1>
+      {/* <h1>Hello Mini Project</h1> */}
+      <ModalParent />
     </>
   );
 }

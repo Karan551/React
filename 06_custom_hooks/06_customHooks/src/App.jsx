@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
-import Input from "./Components";
+import {Input,Heading} from "./Components";
 import useCurrencyInfo from "./Hooks/useCurrencyInfo";
-import Heading from "./Components/Heading";
+// import Heading from "./Components/Heading";
+
 
 function App() {
   const backgroundImage = `https://images.pexels.com/photos/3532540/pexels-photo-3532540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`;

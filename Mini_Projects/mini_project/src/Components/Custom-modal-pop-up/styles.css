@@ -1,0 +1,99 @@
+.modal-container {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid #fff; */
+    padding-top: 200px;
+    /* background-color: #5cb85c; */
+    overflow: auto;
+
+
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    border: 2px solid #747bff;
+    margin: 0 auto;
+
+    animation-name: animateModal;
+    animation-duration: 0.75s;
+    
+    /* background-color: cornflowerblue; */
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: burlywood;
+}
+
+.header {
+    padding: 4px 20px;
+    line-height: 1.25;
+    position: relative;
+    background-color: burlywood;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    padding: 0 0.5rem;
+
+}
+
+.modal-icon:active{
+    box-shadow: 2px 3px 10px black;
+}
+
+.body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    height: 10rem;
+    font-size: 2rem;
+    background-color: rgb(107 114 128);
+}
+
+.body-container>div {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+
+.footer {
+    padding: 0.5rem 2.5rem;
+
+}
+
+
+@keyframes animateModal {
+    from {
+        bottom: 200px;
+        opacity: 0;
+    }
+
+    to {
+        bottom:  0;
+        opacity: 1;
+    }
+
+}

@@ -1,4 +1,5 @@
 import Input from "./Input";
 import Heading from "./Heading";
 
-export default Input;
+// Imoprt all components here and export that
+export {Input,Heading};
