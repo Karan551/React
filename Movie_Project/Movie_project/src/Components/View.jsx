@@ -1,48 +1,92 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import conf from "../conf/config";
+import Info from './Info';
+// import image from "../images/images.jpg"
+import Poster from "../images/Poster.jpeg" 
 
-function View({ searchValue }) {
-    const [movie, setMovie] = useState([]);
+function View({ searchValue, data, movieData }) {
+
+    const [info, setInfo] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [search, setSearch] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
- 
-    async function getMovie(searchValue) {
-        console.log("This is search",searchValue)
+
+
+    let link = `http://www.omdbapi.com/?apikey=${conf.mykey}&i=`;
+
+    const movieInfo = async (id) => {
+
+        // ${link}${eachMovie.imdbID}
         try {
+            console.log("Movie ImDB ID ", id);
+            // console.log("This is movie url---", url);
             setLoading(true);
-            const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=b2ccf8ac&s=${searchValue ? searchValue : ""}`);
-            const data = response.json();
-            console.log("This is data in ---", data);
-            if (data && data.length > 0) {
+            const response = await fetch(`http://www.omdbapi.com/?apikey=${conf.mykey}&i=${id}`);
+
+            const data = await response.json();
+
+            if (data) {
+                setInfo(data);
                 setLoading(false);
-                setMovie(data);
+                console.log("Loaded Data is :", data);
+            }
+
+        } catch (error) {
+            setErrorMsg(error.message);
+            setLoading(false);
+
+
+        }
+
+    };
+
+    return (
+        <div className='grid sm:grid-cols-3 container my-3 gap-2 mx-auto'>
+            {
+
+                movieData && movieData.map((eachMovie, index) => (
+
+                    <div key={index} className="max-w-sm bg-white border border-black rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#">
+                            <img className="rounded-t-lg w-full" src={eachMovie.Poster!="N/A"?eachMovie.Poster:Poster} alt={`${eachMovie.Title}-img`} />
+                        </a>
+                        <div className="p-5 ">
+
+                            <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Name : <span className='text-orange-500 font-semibold'>{eachMovie.Title}</span></h1>
+
+                            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Year : <span className='text-orange-500 font-semibold'>{eachMovie.Year}</span></h2>
+
+                            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Type : <span className='text-orange-500 font-semibold'>{eachMovie.Type}</span></h2>
+
+
+
+
+
+                            <a href="#"
+                            // target='_blank'
+                             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => movieInfo(eachMovie.imdbID)}>
+                                Know more
+
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                ))
+
+            }
+
+            {
+                info && <Info data={info} />
 
             }
 
 
-        } catch (error) {
-            setLoading(false);
-            setErrorMsg(error.message);
-            console.log(error);
-        }
-    }
 
-    if (loading) {
-        return <div>Data Is Loading Please Wait.</div>;
-    }
-    if (errorMsg) {
-        return <div>Something Went Wrong : {errorMsg}</div>;
-    }
 
-    useEffect(() => {
-        if (search !== null) getMovie(searchValue);
-    }, [search,searchValue]);
 
-    console.log("This is movie result", movie);
-    return (
-        <div>
-            <h2 className='text-3xl my-3 font-semibold'>Movie View</h2>
-            <p className='text-2xl font-semibold'>Search Value Come from : {searchValue}</p>
+
+
         </div>
     );
 }
