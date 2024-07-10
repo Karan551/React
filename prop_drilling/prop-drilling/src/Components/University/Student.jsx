@@ -1,8 +1,10 @@
 import React from 'react';
+import { useContext } from "react";
+import { MyContext } from "../../MyContext.js";
 
-function Student({studentData}) {
-    const info = studentData
-    console.log("Student Infomation :-",info)
+function Student() {
+    const data = useContext(MyContext);
+    console.log("This is my data ", data);
     return (
         <div>
             <h1>Hello I'm A Student.</h1>

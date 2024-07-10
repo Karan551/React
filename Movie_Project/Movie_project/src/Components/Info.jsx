@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function Info({ data }) {
-    console.log("Movie Information is ----", data);
+import Poster from "../images/Poster.jpeg";
+
+
+
+function Info({eachMovie}) {
+
+   /*  const [data, setData] = useState({});
+    const [errorMsg, setErrorMsg] = useState(false);
+    const [loading, setLoading] = useState(false);
+ */
+
+
+
     return (
         <div>
+        
             <h2>Detail Information are:-</h2>
             <div className="container">
-                {
-                   
+                {eachMovie &&
+
                     <div>
-                        <img className="rounded-t-lg w-full" src={data.Poster} alt={`${data.Title}movie-img`} />
+                        <img className="rounded-t-lg w-full" src={eachMovie.Poster != "N/A" ? eachMovie.Poster : Poster} alt={`${eachMovie.Title}movie-img`} />
                     </div>
 
 
                 }
+              
             </div>
         </div>
     );
 }
+
 
 export default Info;

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import conf from "../conf/config";
+
 import Info from './Info';
-// import image from "../images/images.jpg"
-import Poster from "../images/Poster.jpeg" 
+import Poster from "../images/Poster.jpeg";
+// import { Link } from "react-router-dom";
 
-function View({ searchValue, data, movieData }) {
+function View({ movies }) {
 
-    const [info, setInfo] = useState(null);
+    const [data, setData] = useState({});
     const [errorMsg, setErrorMsg] = useState(false);
     const [loading, setLoading] = useState(false);
-
-
-    let link = `http://www.omdbapi.com/?apikey=${conf.mykey}&i=`;
+    const [showInfo, setShowInfo] = useState(false);
 
     const movieInfo = async (id) => {
 
@@ -25,8 +24,9 @@ function View({ searchValue, data, movieData }) {
             const data = await response.json();
 
             if (data) {
-                setInfo(data);
+                setData(data);
                 setLoading(false);
+                setShowInfo(true);
                 console.log("Loaded Data is :", data);
             }
 
@@ -39,15 +39,18 @@ function View({ searchValue, data, movieData }) {
 
     };
 
+
+
+
     return (
         <div className='grid sm:grid-cols-3 container my-3 gap-2 mx-auto'>
             {
 
-                movieData && movieData.map((eachMovie, index) => (
+                movies && movies.map((eachMovie, index) => (
 
                     <div key={index} className="max-w-sm bg-white border border-black rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
-                            <img className="rounded-t-lg w-full" src={eachMovie.Poster!="N/A"?eachMovie.Poster:Poster} alt={`${eachMovie.Title}-img`} />
+                            <img className="rounded-t-lg w-full" src={eachMovie.Poster != "N/A" ? eachMovie.Poster : Poster} alt={`${eachMovie.Title}-img`} />
                         </a>
                         <div className="p-5 ">
 
@@ -61,12 +64,17 @@ function View({ searchValue, data, movieData }) {
 
 
 
-                            <a href="#"
-                            // target='_blank'
-                             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => movieInfo(eachMovie.imdbID)}>
+
+                            <button
+
+                                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                onClick={() => movieInfo(eachMovie.imdbID)}>
+
+
+
                                 Know more
 
-                            </a>
+                            </button>
                         </div>
                     </div>
 
@@ -77,15 +85,8 @@ function View({ searchValue, data, movieData }) {
             }
 
             {
-                info && <Info data={info} />
-
+               ( showInfo && data) && <Info eachMovie={data} />
             }
-
-
-
-
-
-
 
         </div>
     );

@@ -18,11 +18,11 @@ function Search() {
         try {
             setLoading(true);
 
-            const response = await fetch("https://dummyjson.com/users?limit=50");
+            const response = await fetch("https://dummyjson.com/users?limit=100");
 
             const data = await response.json();
             if (data && data.users && data.users.length > 0) {
-                console.log(data.users.map((eachObject) => eachObject.firstName));
+                // console.log(data.users.map((eachObject) => eachObject.firstName));
 
                 setData(data.users.map((eachObject) => eachObject.firstName
                 ));
@@ -47,7 +47,6 @@ function Search() {
         // user query
         const userQuery = event.target.value.trim().toLowerCase();
 
-        console.log("this is user Query:", userQuery);
 
 
         if (userQuery.length > 0) {
@@ -79,7 +78,7 @@ function Search() {
 
 
     // -----------------------
-    console.log("This is our data ", data);
+    // console.log("This is our data ", data);
     
     const handleClick = (event) => {
         setInputValue(event.target.innerText);
