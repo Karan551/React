@@ -55,7 +55,7 @@ export const studentsData = [
     },
     {
         roll_number: 10,
-        name: "Saurabh Shuklaa",
+        name: "Saurabh Shukla",
         class: "B.Tech",
         interest: "coding and teaching"
     },

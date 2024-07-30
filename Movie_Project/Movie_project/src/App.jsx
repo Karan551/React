@@ -1,5 +1,7 @@
 
 import Form from "./Components/Form";
+import Info from "./Components/Info";
+
 
 
 
@@ -12,9 +14,10 @@ function App() {
     <>
       <main className="min-h-screen flex items-center flex-col bg-gray-100">
 
-        <Form />
+        {/* <Form /> */}
 
-        {/* <View searchValue={searchValue} /> */}
+       
+        
       </main>
     </>
   );

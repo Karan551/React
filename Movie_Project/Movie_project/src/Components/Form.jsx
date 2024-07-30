@@ -88,12 +88,12 @@ function Form() {
                         />
                     </div>
                     <div className="button-container">
-
+         
                         <button className="text-2xl text-white font-semibold px-4 py-2 bg-teal-500 rounded-lg hover:bg-teal-700 "
                             type='submit'
 
                         >Search</button>
-
+                       
                     </div>
 
 

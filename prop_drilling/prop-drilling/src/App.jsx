@@ -1,17 +1,20 @@
 
-import { Student } from "./Components/index.js";
+import { MyStudent, Num, Student } from "./Components/index.js";
 import { studentsData } from "../src/data.js";
 import { MyContext } from "./MyContext.js";
 
 function App() {
-  const studentInfo = studentsData;
+  // const studentInfo = studentsData;
 
   return (
     <>
       {/* <Universtiy /> */}
-      <MyContext.Provider value={studentInfo}>
+      {/* <MyContext.Provider value={studentInfo}>
       <Student />
-      </MyContext.Provider>
+      </MyContext.Provider> */}
+      {/* It is redux  practice */}
+      {/* <Num/> */}
+      <MyStudent />
 
     </>
   );
