@@ -8,6 +8,11 @@ import Navbar from './Components/Navbar';
 function App() {
   const [myTodo, setMyTodo] = useState([]);
 
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("myTheme");
+    return savedTheme ? savedTheme : "light";
+  });
+
   const addTodo = (todo) => {
     setMyTodo((prev) => [{ id: Date.now(), ...todo }, ...prev]);
 
@@ -36,7 +41,12 @@ function App() {
 
   };
 
+  // To set theme
+  useEffect(() => {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
 
+  }, [theme]);
 
   // To get Item In Local Stroage
   useEffect(() => {
@@ -54,24 +64,21 @@ function App() {
 
   ), [myTodo]);
 
-
-
-
-
+  // To store theme value in localStorage.
+  localStorage.setItem("myTheme", theme);
 
   return (
     <>
-      <ThemeContextProvider value={""}>
-
+      <ThemeContextProvider value={{ theme, setTheme }}>
 
         <Navbar />
       </ThemeContextProvider>
 
       <TodoContextProvider value={{ myTodo, addTodo, updateTodo, deleteTodo, toggleComplete }}>
-        <main className='min-h-screen bg-[#172842] py-8'>
+        <main className='min-h-screen bg-gray-400/50 dark:bg-[#172842] dark:text-[#f5f5f5] py-8'>
 
 
-          <section className='w-full max-w-2xl mx-auto shadow-lg rounded-xl bg-gray-200/70 px-4 py-2 text-black'>
+          <section className='w-full max-w-2xl mx-auto shadow-lg rounded-xl px-4 py-2 bg-white/70 dark:bg-gray-200/70  dark:text-black'>
             <h1 className='text-5xl text-center font-semibold my-3'>Manage Your Todos</h1>
 
             <div className="my-2 flex justify-center">
