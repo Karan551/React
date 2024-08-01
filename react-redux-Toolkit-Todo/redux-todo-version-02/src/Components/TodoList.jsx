@@ -1,74 +1,52 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTodo } from "../features/todo/todoSlice";
+import { removeTodo, updateTodo } from "../features/todo/todoSlice";
 
-function TodoList() {
-    const listTodo = useSelector((state) => state.myTodo.todos);
-    console.log("This is list todo", listTodo);
+function TodoList({ todos }) {
+    // const listTodo = useSelector((state) => state.myTodo.todos);
+    const listTodo = todos;
+    console.log("This is our todo", listTodo);
 
-    const [todoMsg, setTodoMsg] = useState("");
+    const [todoMsg, setTodoMsg] = useState(todos.msg);
 
     const [isTodoEditAble, setIsTodoEditAble] = useState(false);
 
-    console.log("this is todo msg", todoMsg);
+
     const dispatch = useDispatch();
 
-    const handleRemove = (id) => {
-        dispatch(removeTodo(id));
-    };
-
     const handleEdit = (id) => {
-        console.log("this is todo id", id);
-
+        dispatch(updateTodo({ todoId: id, todoMsg: todoMsg }));
         setIsTodoEditAble(!isTodoEditAble);
     };
 
 
     return (
-        <div className='w-full flex flex-col justify-center'>
-            {
-                listTodo.length > 0 && listTodo.map((eachTodoObj, index) => (
-
-                    <div className='w-2/3  mx-auto text-2xl flex justify-between items-center px-2 py-2' key={index}>
-
-                        <input type="text"
-                            className={`border outline-none w-2/3  rounded-lg px-4 py-2 text-3xl
-                            ${isTodoEditAble ? "border-black/80 px-4 bg-white" : "border-transparent bg-transparent"}
-                            
-                            `}
+        <div className='flex border border-black/10 rounded-lg px-3 py-2 gap-x-3 shadow-sm shadow-white/50 duration-500'>
 
 
-
-                            value={todoMsg}
-                            onChange={(e) => setTodoMsg(e.target.value)}
-                            readOnly={!isTodoEditAble}
-
-                        />
-
-
+            <input type="text"
+                value={todoMsg}
+                className={`text-2xl border outline-none w-full bg-transparent rounded-lg px-3 py-2 ${isTodoEditAble ? "border-black/50" : "border-transparent"}`}
+                readOnly={!isTodoEditAble}
+                onChange={(e) => setTodoMsg(e.target.value)}
+            />
 
 
+            {/* edit , save button */}
+            <button className='w-10 h-10 rounded-lg  border border-black/50 inline-flex justify-center items-center text-red-500 font-semibold bg-gray-50 hover:bg-gray-200 shrink-0 disabled:opacity-30'
+                onClick={() => handleEdit(todos.id)}
+            >
+                {isTodoEditAble ? "✏️" : "📁"}
+                {/* {todos.id} */}
+            </button>
+
+            {/* delete button */}
+            <button
+                className='w-10 h-10 rounded-lg  border border-black/50 inline-flex justify-center items-center text-red-500 font-semibold bg-gray-50 hover:bg-gray-200 shrink-0'
+                onClick={() => dispatch(removeTodo(todos.id))}
+            >❌</button>
 
 
-                        <div>
-                            <button className={`mx-2 px-5 py-1 rounded-lg text-white
-                               ${isTodoEditAble ? "bg-yellow-500" : "bg-yellow-100"}
-                              
-                               hover:bg-yellow-700 hover:cursor-pointer`}
-                                onClick={() => handleEdit(eachTodoObj.id)}
-                            >✏️</button>
-
-
-
-                            <button className='  mx-2 px-5 py-1 rounded-lg text-white hover:cursor-pointer bg-red-500 hover:bg-red-700' onClick={() => handleRemove(eachTodoObj.id)}>X</button>
-                        </div>
-                    </div>
-                )
-
-                )
-            }
-
-            {/* <div className='w-2/3 text-2xl flex justify-between px-2 py-2'>Hello World <button>X</button></div> */}
         </div>
     );
 }
