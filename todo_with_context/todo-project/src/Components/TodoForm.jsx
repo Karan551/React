@@ -5,10 +5,10 @@ function TodoForm() {
 
     const [inputValue, setInputValue] = useState("");
     const { addTodo } = useTodo();
-    // console.log("this add todo", addTodo);
 
-    const handleClick = (event) => {
-        // event.preventDefault();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
         if (!inputValue) return;
         addTodo({ msg: inputValue, completed: false });
         setInputValue("");
@@ -18,7 +18,7 @@ function TodoForm() {
 
     return (
 
-        <form >
+        <form onSubmit={handleSubmit}>
 
 
             <input type="text"
@@ -30,8 +30,8 @@ function TodoForm() {
 
 
             <button className='text-3xl font-semibold px-3 py-4 text-white shadow-sm shadow-white/60 bg-teal-500 hover:bg-teal-700 rounded-r-xl hover:text-orange-300 active:shadow-xl active:shadow-green-300'
-                type='button'
-                onClick={handleClick}
+                type='submit'
+
 
             >Add Todo</button>
         </form>

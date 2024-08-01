@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { TodoContextProvider } from './context/todoContext';
+import { ThemeContextProvider, TodoContextProvider } from './context/todoContext';
 import TodoForm from './Components/TodoForm';
 import TodoItem from './Components/TodoItem';
+import Navbar from './Components/Navbar';
 
 function App() {
   const [myTodo, setMyTodo] = useState([]);
@@ -60,6 +61,12 @@ function App() {
 
   return (
     <>
+      <ThemeContextProvider value={""}>
+
+
+        <Navbar />
+      </ThemeContextProvider>
+
       <TodoContextProvider value={{ myTodo, addTodo, updateTodo, deleteTodo, toggleComplete }}>
         <main className='min-h-screen bg-[#172842] py-8'>
 

@@ -27,3 +27,11 @@ function useTodo() {
 
 export default useTodo;
 
+// ---------------------
+const ThemeContext = createContext("null");
+
+export const ThemeContextProvider = ThemeContext.Provider;
+
+export function useTheme() {
+    return useContext(ThemeContext);
+}
