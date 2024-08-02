@@ -6,32 +6,45 @@ import { useEffect, useState } from "react";
 
 function App() {
 
-  let todos = useSelector((state) => state.myTodo.todos);
+  const savedData = JSON.parse(localStorage.getItem("myTodos"));
+  let todos;
+  if (savedData) {
+    todos = savedData;
+
+  } else {
+    todos = useSelector((state) => {
+      return state.myTodo.todos;
+    });
+  }
+
   const [myTodos, setMyTodos] = useState(todos);
 
-  console.log(JSON.stringify(todos));
+  
 
-  console.log("this our todos", todos);
-  // console.log("this our todos------", myTodos);
-  // To get in localstorage
+  // useEffect(() => {
+  //   const savedData = JSON.parse(localStorage.getItem("myTodos"));
+  //   if (!savedData) return;
+  //   savedData.length > 1 ?
+  //     todos = savedData
 
+  //     : false;
 
-  useEffect(() => {
-    const prevTodos = JSON.parse(localStorage.getItem("myTodos"));
-    console.log("this is our prev todos :", prevTodos);
-    // todos = prevTodos;
-    console.log("this is prevTodos",prevTodos)
-    setMyTodos(prevTodos);
-    console.log("this is our after todos ------:", prevTodos);
-    // setTodos(prevTodos);
-  }, []);
+  // }, []);
+
   // To set value in localstorage
   useEffect(() => {
     localStorage.setItem("myTodos", JSON.stringify(todos));
 
   }, [todos]);
 
- console.log( localStorage["myTodos"])
+  //  console.log( localStorage["myTodos"])
+  console.log("My Todos is app---", todos);
+  console.log("My Todos is app??????", myTodos);
+
+  /*  const getValueInStorage = () => {
+     return JSON.parse(localStorage.getItem("myTodos"));
+   }; */
+
 
   return (
     <>

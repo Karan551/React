@@ -1,10 +1,84 @@
 import React from 'react';
+import { Container, LogoutBtn, Logo } from '../index';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+
 
 function Header() {
+
+    // const navigate = useNavigate();
+    const authStatus = useSelector((state) => state.auth.status);
+
+    const navItems = [
+        {
+            name: "Home",
+            slug: "/",
+            active: true,
+        },
+        {
+            name: "Login",
+            slug: "/login",
+            active: !authStatus,
+        },
+        {
+            name: "Signup",
+            slug: "/sign-up",
+            active: !authStatus,
+        },
+        {
+            name: "All Posts",
+            slug: "/all-posts",
+            active: authStatus,
+        },
+        {
+            name: "Add Posts",
+            slug: "/add-posts",
+            active: authStatus,
+        },
+    ];
     return (
-        <div>
-            This is our Header
-        </div>
+        <header className='py-3 shadow-md bg-gray-500'>
+            <Container>
+                <nav className='flex'>
+                    <div className='mr-4'>
+                        {/* here we will apply Link */}
+                        <Logo width='70px' />
+                    </div>
+
+                    <ul className='flex ml-auto space-x-5'>
+                        {
+                            navItems.map((eachNavItem) =>
+                                eachNavItem.active
+                                    ?
+                                    <li key={eachNavItem.name}>
+
+                                        <button
+                                            className='inline-block px-6 py-3 text-lg font-semibold 
+                                            text-white
+                                            bg-blue-400 duration-200 hover:bg-blue-600 rounded-full'
+                                            // onClick={() => navigate(eachNavItem.slug)}
+
+                                        >{eachNavItem.name}</button>
+
+                                    </li>
+
+
+                                    : null
+                            )}
+
+                        {
+                            authStatus &&
+                            (
+                                <li>
+                                    <LogoutBtn />
+                                </li>
+                            )
+                        }
+                    </ul>
+                </nav>
+            </Container>
+        </header>
     );
 }
 
