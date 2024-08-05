@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./feature/auth/authSlice";
 import authService from "./appwrite/auth.js";
-import { Header, Footer } from "./Components/index.js";
+import { Header, Footer, Login, Signup } from "./Components/index.js";
 
 function App() {
 
@@ -33,6 +33,8 @@ function App() {
 
 
       <Header />
+      {/* <Login /> */}
+      <Signup />
       <Footer />
 
     </>

@@ -141,5 +141,5 @@ export class Service {
 
 // To create a new object.
 
-const service = new Service();
-export default service;
+const appwriteService = new Service();
+export default appwriteService;
