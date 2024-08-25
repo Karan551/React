@@ -8,7 +8,9 @@ import Button from "./Button.jsx";
 import Input from "./Input.jsx";
 import Signup from "./Signup.jsx";
 
+import RTE from "./RTE.jsx";
 
 
 
-export { Header, Footer, Logo, Container, LogoutBtn, Login, Button, Input, Signup };
+
+export { Header, Footer, Logo, Container, LogoutBtn, Login, Button, Input, Signup, RTE };
