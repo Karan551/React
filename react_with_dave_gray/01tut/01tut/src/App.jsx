@@ -1,15 +1,21 @@
+import Header from "./Components/Header";
+import Content from "./Components/Content";
+import Footer from "./Components/Footer";
 
 
 
 function App() {
 
 
+
   return (
-    <>
-     <h1>Hello Dev</h1>
-        
-    </>
-  )
+    <div className="app">
+      <Header />
+      <Content />
+      <Footer />
+
+    </div>
+  );
 }
 
-export default App
+export default App;

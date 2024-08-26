@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -9,9 +9,10 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+   -webkit-font-smoothing: antialiased; 
   -moz-osx-font-smoothing: grayscale;
-}
+} 
+*/
 
 * {
   margin: 0;
@@ -19,13 +20,71 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 1.5rem;
+}
+
 body {
+  font-family: 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   min-height: 100vh;
-  font-size: 3rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.app {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  /* margin: auto; */
+  /* max-width: 700px; */
+  border: 1px solid mediumblue;
+}
+
+main {
+  flex-grow: 1;
+}
+
+header {
+  width: 100%;
+  font-size: 2rem;
+  padding: 0 0.25em;
+  text-align: center;
+  background-color: mediumblue;
+  color: aliceblue;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  background-color: aliceblue;
+}
+
+
+footer {
+  width: 100%;
+  padding: 0.25em;
+  background-color: mediumblue;
+  color: aliceblue;
+  display: grid;
+  place-content: center;
+}
+
+
 
 a {
   font-weight: 500;
@@ -45,19 +104,26 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 15px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.25em;
+  font-weight: 700;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color:orange;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color,transform 0.5s ease-in-out;
+  color: whitesmoke;
+  box-shadow: 2px 5px royalblue ;
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: greenyellow;
+  background-color: cornflowerblue;
+  transform: scale(1.2);
+}
+button:active{
+  box-shadow: 4px 8px 10px rgb(105, 105, 105);
 }
 
 button:focus,
@@ -65,7 +131,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -78,4 +144,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
