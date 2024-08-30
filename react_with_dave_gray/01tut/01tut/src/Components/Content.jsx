@@ -1,22 +1,64 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { data } from "../data";
+import { FaTrashAlt } from "react-icons/fa";
 const Content = () => {
-    const [name, setName] = useState("");
-    const nameArr = ["Master", "Ganesh", "Mahesh", "Amitesh", "Alokesh"];
+
+    const storedData = JSON.parse(localStorage.getItem("shopplingList"));
+
+    const [items, setItems] = useState(storedData && storedData.length ? storedData : data);
 
 
-    const handleName = () => {
-        const randomNum = Math.floor(Math.random() * nameArr.length);
 
-        return setName(nameArr[randomNum]);
+
+
+    const handlCheck = (id) => {
+
+        const listItems = items.map((eachObject) => (eachObject.id === id ? { ...eachObject, checked: !eachObject.checked } : eachObject));
+
+        setItems(listItems);
+
+        localStorage.setItem("shopplingList", JSON.stringify(listItems));
     };
+
+    const handleDelete = (id) => {
+        const listItems = items.filter((eachObject) => eachObject.id !== id);
+
+        setItems(listItems);
+        localStorage.setItem("shopplingList", JSON.stringify(listItems));
+    };
+
     return (
         <main className='main'>
-            <h1>Hello {name} !</h1>
+            {
+                items.length ?
+                    (
+                        <ul>
 
-            <div>
-                <button type="button" onClick={handleName}>Click Me!</button>
-            </div>
+                            {
+                                items.map((eachItem) => (
+                                    <li key={eachItem.id} className='item'>
+
+                                        <input
+                                            type="checkbox"
+                                            onChange={() => handlCheck(eachItem.id)}
+                                            checked={eachItem.checked}
+                                        />
+
+                                        <label style={eachItem.checked ? { textDecoration: "line-through" } : null}>{eachItem.item}</label>
+
+                                        <FaTrashAlt
+                                            role='button'
+                                            tabIndex="0"
+                                            onClick={() => handleDelete(eachItem.id)}
+                                        />
+
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    )
+                    : <p>No List Items available</p>
+            }
         </main>
     );
 };

@@ -103,32 +103,99 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.btn {
   border-radius: 15px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1.25em;
   font-weight: 700;
   font-family: inherit;
-  background-color:orange;
+  background-color: orange;
   cursor: pointer;
-  transition: border-color,transform 0.5s ease-in-out;
+  transition: border-color, transform 0.5s ease-in-out;
   color: whitesmoke;
-  box-shadow: 2px 5px royalblue ;
+  box-shadow: 2px 5px royalblue;
 }
 
-button:hover {
+.btn:hover {
   border-color: greenyellow;
   background-color: cornflowerblue;
   transform: scale(1.2);
 }
-button:active{
+
+.btn:active {
   box-shadow: 4px 8px 10px rgb(105, 105, 105);
 }
 
-button:focus,
-button:focus-visible {
+.btn:focus,
+.btn:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.toggle-content {
+  transition: all 0.5s ease-in-out;
+
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+  padding: 0 0.25rem 0.25rem;
+}
+
+ul li::before {
+  content: "\200B";
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  margin: 0.25rem 0;
+  background-color: #eee;
+}
+
+.item:first-child {
+  margin: 0;
+}
+
+.item input[type="checkbox"] {
+  text-align: center;
+  width: 2.5rem;
+  width: 48px;
+  min-width: 48px;
+
+  height: 2.5rem;
+  height: 48px;
+  min-height: 48px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.item input[type="checkbox"]:focus+label {
+  text-decoration: underline;
+}
+
+.item>label {
+  font-size: 1.25rem;
+  font-weight: 400;
+  flex-grow: 1;
+}
+
+.item svg {
+  width: 48px;
+  min-width: 48px;
+  height: 36px;
+  font-size: 1rem;
+  color: steelblue;
+  cursor: pointer;
+}
+
+.item svg:focus,
+.item svg:hover {
+  color: red;
+  outline: none;
 }
 
 /* @media (prefers-color-scheme: light) {
