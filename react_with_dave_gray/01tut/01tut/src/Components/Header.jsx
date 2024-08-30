@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Header = () => {
-    const headerStyle = { backgroundColor: "blueviolet", fontSize: "2rem", textAlign: "center" };
+const Header = ({ title = "Grocery List" }) => {
     return (
         <header>
-            Groceries List
+            {title}
         </header>
     );
 };
