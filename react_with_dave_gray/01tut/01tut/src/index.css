@@ -68,7 +68,7 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
   background-color: aliceblue;
@@ -167,8 +167,8 @@ ul li::before {
   min-width: 48px;
 
   height: 2.5rem;
-  height: 48px;
-  min-height: 48px;
+  height: 30px;
+  min-height: 30px;
   cursor: pointer;
   margin-right: 0.5rem;
 }
@@ -178,7 +178,7 @@ ul li::before {
 }
 
 .item>label {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 400;
   flex-grow: 1;
 }
@@ -196,6 +196,90 @@ ul li::before {
 .item svg:hover {
   color: red;
   outline: none;
+}
+
+.addForm,
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.addForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.addForm input[type="text"] {
+  flex-grow: 1;
+  max-width: calc(100%-50px);
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  outline: none;
+}
+
+button {
+  height: 48px;
+  min-width: 48px;
+  padding: 0.25rem;
+  font-size: 1rem;
+  display: inline-block;
+  border-radius: 0.25rem;
+  color: mediumblue;
+  background-color: aliceblue;
+  cursor: pointer;
+  box-shadow: 3px 5px 7px rgb(182, 214, 157);
+}
+
+.addForm input[type="text"]:focus {
+  border: 2px solid rgb(79 70 229);
+}
+
+button:focus,
+button:hover {
+  color: white;
+  background-color: limegreen;
+  outline: none;
+}
+
+button:active {
+  box-shadow: 4px 7px whitesmoke;
+}
+
+
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+  margin: 5px 0;
+}
+
+.searchForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.searchForm input[type="text"] {
+  max-width: 100%;
+  min-height: 48px;
+  flex-grow: 1;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  outline: none;
+
+}
+.searchForm input[type="text"]:focus {
+  border: 2px solid rgb(79 70 229);
 }
 
 /* @media (prefers-color-scheme: light) {
