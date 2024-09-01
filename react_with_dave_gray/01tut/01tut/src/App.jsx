@@ -2,13 +2,13 @@ import Header from "./Components/Header";
 import Content from "./Components/Content";
 import Footer from "./Components/Footer";
 import AddItem from "./Components/AddItem";
+import SearchItem from "./Components/SearchItem";
 import { useState, useEffect } from "react";
 import { data } from "./data";
-import SearchItem from "./Components/SearchItem";
+import { apiRequest } from "./apiRequest";
 
 function App() {
-
-  const API_URL = "http://localhost:3500/items";
+  const API_URL = "http://localhost:3000/items";
 
   const css_styles = { fontSize: "1.5rem", flexGrow: "1", display: "grid", placeContent: "center", color: "red" };
 
@@ -49,26 +49,64 @@ function App() {
   }, []);
 
 
-  const handlCheck = (id) => {
+  const handlCheck = async (id) => {
 
     const listItems = items.map((eachObject) => (eachObject.id === id ? { ...eachObject, checked: !eachObject.checked } : eachObject));
 
     setItems(listItems);
+
+    const updatedItem = listItems.filter((eachObject) => eachObject.id === id);
+
+    const updateOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ checked: updatedItem[0].checked })
+
+    };
+
+    const result = await apiRequest(`${API_URL}/${id}`, updateOptions);
+
+    if (result)
+      setFetchError(result);
+
+
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const listItems = items.filter((eachObject) => eachObject.id !== id);
 
     setItems(listItems);
+
+    const deleteOptions = {
+      method: "DELETE"
+    };
+    const result = await apiRequest(`${API_URL}/${id}`, deleteOptions);
+
+    if (result)
+      setFetchError(result);
+
   };
 
-  const addItem = (item) => {
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
+
+  const addItem = async (item) => {
+    const id = items.length ? Number(items[items.length - 1].id) + 1 + "" : 1 + "";
 
     const myNewItem = { id, item, checked: false };
     const listItems = [...items, myNewItem];
     setItems(listItems);
 
+    const postOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(myNewItem)
+    };
+    const result = await apiRequest(API_URL, postOptions);
+    if (result)
+      setFetchError(result);
   };
 
   const handleSubmit = (event) => {
@@ -120,6 +158,6 @@ function App() {
 
     </div>
   );
-}
 
+}
 export default App;
