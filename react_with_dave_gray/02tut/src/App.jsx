@@ -1,16 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Input from './Components/Input';
+import Square from './Components/Square';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [colorValue, setColorValue] = useState("");
+  const [hexColorName, setHexColorName] = useState("");
+  const [isDarkText, setIsDarkText] = useState(false);
 
   return (
     <>
-      <h2>Lesson 2 Added</h2>
+      <Square
+        colorName={colorValue}
+        hexColorName={hexColorName}
+        isDarkText={isDarkText}
+      />
+      <Input
+        colorValue={colorValue}
+        setColorValue={setColorValue}
+
+        setHexColorName={setHexColorName}
+        isDarkText={isDarkText}
+        setIsDarkText={setIsDarkText}
+      />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
