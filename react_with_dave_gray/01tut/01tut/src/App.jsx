@@ -2,7 +2,7 @@ import Header from "./Components/Header";
 import Content from "./Components/Content";
 import Footer from "./Components/Footer";
 import AddItem from "./Components/AddItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { data } from "./data";
 import SearchItem from "./Components/SearchItem";
 
@@ -11,29 +11,22 @@ function App() {
   const storedData = JSON.parse(localStorage.getItem("shopplingList"));
 
   // const [items, setItems] = useState(storedData && storedData.length ? storedData : data);
-  const [items, setItems] = useState(storedData ? storedData : data);
+  const [items, setItems] = useState(storedData || []);
   const [newItem, setNewItem] = useState("");
   const [search, setSearch] = useState("");
-
-
-  const setAndSave = (newItems) => {
-    setItems(newItems);
-
-    localStorage.setItem("shopplingList", JSON.stringify(newItems));
-  };
 
 
   const handlCheck = (id) => {
 
     const listItems = items.map((eachObject) => (eachObject.id === id ? { ...eachObject, checked: !eachObject.checked } : eachObject));
 
-    setAndSave(listItems);
+    setItems(listItems);
   };
 
   const handleDelete = (id) => {
     const listItems = items.filter((eachObject) => eachObject.id !== id);
 
-    setAndSave(listItems);
+    setItems(listItems);
   };
 
   const addItem = (item) => {
@@ -41,13 +34,13 @@ function App() {
 
     const myNewItem = { id, item, checked: false };
     const listItems = [...items, myNewItem];
-    setAndSave(listItems);
+    setItems(listItems);
 
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("form is submitted.");
+
     if (!newItem) return;
     addItem(newItem);
     setNewItem("");
@@ -56,6 +49,13 @@ function App() {
   const handleSearch = () => {
     const result = items.filter((eachObject) => (eachObject.item.toLowerCase().includes(search.toLowerCase())));
   };
+
+
+  useEffect(() => {
+    localStorage.setItem("shopplingList", JSON.stringify(items));
+  }, [items]);
+
+
 
   return (
     <div className="app">
