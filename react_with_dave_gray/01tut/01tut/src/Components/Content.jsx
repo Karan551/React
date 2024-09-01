@@ -1,19 +1,19 @@
 import ItemList from './ItemList';
 
-const Content = ({ items, handlCheck, handleDelete }) => {
+const Content = ({ items, handlCheck, handleDelete,css_styles }) => {
 
     return (
-        <main className='main'>
+        <>
             {
                 items.length ?
-                    <ItemList 
-                    items={items} 
-                    handlCheck={handlCheck} 
-                    handleDelete={handleDelete} 
+                    <ItemList
+                        items={items}
+                        handlCheck={handlCheck}
+                        handleDelete={handleDelete}
                     />
-                    : <p>No List Items available</p>
+                    : <p style={{...css_styles,color:"dodgerblue"}}>Your List is Empty.</p>
             }
-        </main>
+        </>
     );
 };
 
