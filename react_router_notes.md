@@ -285,5 +285,5 @@
 3. **`<Navigate>`:-** 👉 A `<Navigate>` element changes the       current location when it is rendered. It accepts all the same arguments as props.<br/>
       - **For Example :-** 👉 &nbsp;`<Navigate to="/user/"> User </Navigate>`
 
-5. **`<Outlet>` :-** 👉
-6. **`<Form>` :-** 👉
+5. **`<Outlet>` :-** 👉 **An `<Outlet>` should be used in *parent route elements to render their child route elements.* This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.**
+6. **`<Form>` :-** 👉[Click Here](https://reactrouter.com/en/main/components/form) To Know More About `<Form>`.
