@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* -----Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+.fs-2 {
+    font-size: 2rem;
+}
+
+/* ------- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    /* flex-flow: column; */
+
+    background-color: aliceblue;
+    background-color: rgb(229 231 235);
+    background-color: #333;
+    ;
+
+}
+
+#root {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.App {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #333;
+    box-shadow: 0px 0px 15px gray;
+}
+
+.Header,
+.Footer {
+    width: 100%;
+    background-color: #66d8f5;
+    padding: 1rem;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Header h1 {
+    font-size: 1.5rem;
+}
+
+.Footer {
+    padding: 0.75rem;
+    display: grid;
+    place-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+}
+
+.Nav {
+    color: #f5f5f5;
+    width: 100%;
+    background-color: #8d8d8d9e;
+
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.searchForm {
+    width: 80%;
+    padding: 1rem;
+}
+
+.searchForm input[type="text"] {
+    width: 100%;
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: inherit;
+    outline: none;
+    border-radius: 0.75rem;
+    min-height: 48px;
+}
+
+.searchForm input[type="text"]:focus {
+    border-color: rgb(79 70 229);
+    /* border-color: red; */
+
+}
+
+.searchForm label {
+    position: absolute;
+    left: -9999px
+}
+
+.Nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+
+}
+
+
+
+/* .Nav li{
+    padding: 1rem;
+} */
+
+.Nav li a {
+    color: #f5f5f5;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    display: inline-block;
+
+}
+
+.Nav li a.active {
+    color: orange;
+    font-weight: 700;
+}
+
+.Nav li:hover,
+.Nav li:focus {
+    background-color: #eee;
+    color: #333;
+    cursor: pointer;
+}
+
+.Nav li a:hover {
+    cursor: pointer;
+    display: block;
+    text-decoration: underline;
+    color: #000;
+
+}
+
+.Home,
+.PostPage,
+.About,
+.Error,
+.NewPost {
+    flex-grow: 1;
+    width: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #c8c8c8;
+    background-color: rgb(138, 138, 138);
+
+}
+
+.post {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.Home .post a {
+    text-decoration: none;
+}
+
+.Home .post a,
+.Home .post a:visited {
+    color: #000;
+}
+
+.post:first-child {
+    margin-top: 0;
+}
+
+.post:last-child {
+    border-bottom: none;
+}
+
+.postDate {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+
+.postBody {
+    margin: 1rem 0;
+}
+
+.postHeader:hover,
+.postBodyHover:hover {
+    color: #fff;
+}
+/* .post .postHeader:hover{
+    color:#fff;
+} */
+
+.NewPost {
+    padding: 0;
+}
+
+.NewPost h2 {
+    background-color: deepskyblue;
+    padding: 1rem;
+    color: #f5f5f5;
+}
+
+.newPostForm {
+    display: flex;
+    flex-flow: column;
+    padding: 0.25rem 0.75rem;
+}
+
+.newPostForm label {
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.newPostForm input[type="text"],
+.newPostForm textarea {
+    font-family: inherit;
+    padding: 0.5rem 0.75rem;
+    margin-right: 0.5rem;
+    min-height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.About h2 {
+    font-size: 3rem;
+    font-family: inherit;
+    font-weight: 700;
+
+}
+
+.About p {
+    font-size: 1.5rem;
+    font-family: inherit;
+    margin-top: 1rem;
+}
+
+
+/* ---------- */
+
+button {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    margin: 0.5rem 0.25rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: inherit;
+    background-color: cornflowerblue;
+    color: #f5f5f5;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    box-shadow: 3px 5px #eee;
+    outline: none;
+}
+
+button:active {
+    box-shadow: 4px 7px #eee;
+}
+
+button:hover {
+    /* border-color: #646cff; */
+    background-color: #212121;
+    color: #f5f5f5;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+.link {
+    display: inline-block;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 1rem;
+    border-radius: 10px;
+    background-color: darkorange;
+    color: #f5f5f5;
+    font-size: 1.25rem;
+    font-weight: 700;
+    box-shadow: 3px 5px #eee;
+
+}
+
+.link:hover {
+    /* text-decoration: underline; */
+    background-color: rgb(43, 43, 43);
+}
+
+.link:active {
+    box-shadow: 4px 7px #eee;
+}
+
+/* -----------Media Queries */
+@media only screen and (min-width: 610px) {
+    html {
+        font-size: 18px;
+    }
+
+    .Header h1 {
+        font-size: 2rem;
+    }
+
+    .Nav {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .Nav ul {
+        text-align: right;
+        margin-left: 0.5rem;
+    }
+
+    .Nav li:hover,
+    .Nav li:focus,
+    .Nav li:hover a,
+    .Nav li:focus a {
+        background-color: #eee;
+        color: #333;
+    }
+
+    .searchForm {
+        width: 50%;
+        padding: .5rem 0;
+        margin-right: 0.5rem;
+    }
+
+    .searchForm input[type="text"] {
+        margin-left: 0.5rem;
+    }
+
+    .newPostForm textarea {
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+
+    .Header svg {
+        font-size: 3rem;
+    }
+
+}
