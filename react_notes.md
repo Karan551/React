@@ -184,14 +184,14 @@
 5. **`DELETE` :-** 👉  **`DELETE` method deletes the specified resource.**
 
 
-  #### What is difference between `PUT` request and `POST` request :-
+#### ⭐&nbsp; What is difference between `PUT` request and `POST` request :-
 - **`PUT` requests are idempotent(means same result if we do same work many times), meaning that executing the same `PUT` request will always produce the same result.**
 
-**On the other hand, a `POST` will produce different outcomes. If you execute a POST request multiple times, you'll create a new resource multiple times despite them having the same data being passed in.**
+- **On the other hand, a `POST` will produce different outcomes. If you execute a POST request multiple times, you'll create a new resource multiple times despite them having the same data being passed in.**
 
-**Using a restaurant analogy, `POST`ing multiple times would create multiple separate orders, whereas multiple `PUT` requests will update the same existing order.**
+- **Using a restaurant analogy, `POST`ing multiple times would create multiple separate orders, whereas multiple `PUT` requests will update the same existing order.**
 
-#### What is difference between `PUT` request and `PATCH` request :-
+#### ⭐&nbsp; What is difference between `PUT` request and `PATCH` request :-
 - **The key differences are that `PUT` will create a *new resource if it cannot find* the specified resource. And with `PUT` you need to pass in data to update the entire resource, even if you only want to modify one field.**
 
 - **With `PATCH`, you can update part of a resource by simply passing in the data of the field to be updated.**
@@ -200,3 +200,12 @@
 - **R (READ)** 👉 `GET` request.
 - **U (UPDATE)** 👉 `PATCH` request. (But if we want to update entire resource then `PUT` request). 
 - **D (DELETE)** 👉 `DELETE` request.
+
+#### How To Start JSON Server :-
+
+```bash 
+npx json-server --watch db.json.
+# or 
+# Syntax ==> npx json-server path_json_file
+npx json-server db.json
+```
