@@ -31,7 +31,6 @@ function App() {
         const data = await response.json();
 
         setItems(data);
-        console.log("This is coming data--", data);
 
       } catch (error) {
         console.log(error.message);

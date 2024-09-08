@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Post = ({ post }) => {
     return (
         <>
-            <article className="post">
+            {post && <article className="post">
                 <Link to={`post/${post.id}`} >
                     <h2 className="postHeader">{post.title}</h2>
                     <p className="postDate postHeader">{post.datetime}</p>
@@ -23,6 +23,11 @@ const Post = ({ post }) => {
                     </p>
                 </Link>
             </article>
+            }
+
+            {
+                !post && <p> Data Can't Found Via API.</p>
+            }
         </>
     );
 };

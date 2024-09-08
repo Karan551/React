@@ -8,12 +8,13 @@ import ErrorPage from "./ErrorPage";
 import Helper from "./Helper";
 import Feed from "./Feed";
 import NewPost from "./NewPost";
+import EditPost from "./EditPost";
 
 
 
 
 
-export { Header, Footer, Nav, Home, About, ErrorPage, PostPage, Helper, Feed, NewPost };
+export { Header, Footer, Nav, Home, About, ErrorPage, PostPage, Helper, Feed, NewPost, EditPost };
 
 
 
