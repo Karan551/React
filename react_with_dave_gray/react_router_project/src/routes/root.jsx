@@ -1,35 +1,37 @@
-import React from 'react';
-import { Outlet, Link, useLoaderData, Form, redirect } from 'react-router-dom';
-import { getContacts, createContact } from '../contact';
+import { Link, useNavigation, Outlet, useLoaderData, Form, redirect, NavLink } from "react-router-dom";
+import { getContacts, createContact } from "../contact.js";
 
+
+// this function is used to read / get data 
 export async function loader() {
     const contacts = await getContacts();
-
+    console.log("loader is called and contact is loaded or read");
     return { contacts };
 }
-
-export const action = async () => {
+// this function is used to write/create data 
+export async function action({ params }) {
     const contact = await createContact();
-
+    console.log("action is called and contact is created");
+    console.log("this is actions in root", contact, { contact });
+    console.log("this is params", params);
     // return { contact };
-    return redirect(`/contacts/${contact.id}/edit`);
-};
-
-
-
-
+    return redirect(`/contacts/:${contact.id}/edit`);
+}
 
 
 
 export default function Root() {
-
     const { contacts } = useLoaderData();
+    // console.log("this is returned by loader function", contacts);
+    // console.log(contacts.length);
+
+    const navigation = useNavigation();
     return (
         <>
             <div id="sidebar">
                 <h1>React Router Contacts</h1>
                 <div>
-                    <form id="search-form" role="search">
+                    <Form id="search-form" role="search">
                         <input
                             id="q"
                             aria-label="Search contacts"
@@ -46,7 +48,7 @@ export default function Root() {
                             className="sr-only"
                             aria-live="polite"
                         ></div>
-                    </form>
+                    </Form>
                     <Form method="post">
                         <button type="submit">New</button>
                     </Form>
@@ -54,30 +56,36 @@ export default function Root() {
                 <nav>
                     {
                         contacts.length ?
-                            (
-                                <ul>
-                                    {
-                                        contacts.map((eachContact) => (
-                                            <Link to={`contacts/${eachContact.id}`} key={eachContact.id}>
+                            <ul>
+                                {
+                                    contacts.map((contact) => (
+                                        <li key={contact.id}>
+                                            <NavLink to={`contacts/${contact.id}`}
+                                                className={({ isActive, isPending }) => isActive ? "active" : isPending ? "pending" : ""}
 
-                                                {eachContact.first || eachContact.last ?
-                                                    <>{eachContact.first} {eachContact.last}</>
 
-                                                    : (<i>No Name</i>)
-                                                }{" "}
-                                                {eachContact.favorite && <span>★</span>}
-                                            </Link>
-
-                                        ))
-                                    }
-                                </ul>
-                            )
-                            :
-                            <p><i>No Contacts</i></p>
+                                            >
+                                                {contact.first || contact.last ?
+                                                    <>{contact.first} {contact.last}</>
+                                                    : <i>No Name</i>
+                                                }
+                                                {contact.favourite && <span>★</span>}
+                                            </NavLink>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                            : <p> <i>No contacts</i> </p>
                     }
                 </nav>
             </div>
-            <div id="detail">
+            <div id="detail"
+                className={
+                    navigation.state === "loading" ? "loading" : ""
+                }
+
+
+            >
 
                 <Outlet />
             </div>

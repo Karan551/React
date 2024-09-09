@@ -5,9 +5,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './styles.css';
 import Root, { loader as rootLoader, action as rootAction } from './routes/root.jsx';
 import ErrorPage from './Components/ErrorPage.jsx';
-import Contact, { loader as contactLoader } from './routes/contact.jsx';
 
-import EditContact, { action as editAction } from './routes/edit.jsx';
+import Contact, { loader as contactLoader } from './routes/contact.jsx';
+import EditContact, { myAction as editAction } from './routes/edit.jsx';
+
+// import EditContact, { action as editAction } from './routes/edit.jsx';
 
 
 const router = createBrowserRouter([
@@ -25,15 +27,16 @@ const router = createBrowserRouter([
 
       },
       {
-        path: "contacts/:contactId/edit",
+        path: "/contacts/:contactId/edit",
         element: <EditContact />,
         loader: contactLoader,
         action: editAction,
-
       }
     ]
-  },
+  }
+
 ]);
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

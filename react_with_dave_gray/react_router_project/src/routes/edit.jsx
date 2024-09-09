@@ -1,47 +1,44 @@
-import React from 'react';
-import { Form, useLoaderData, redirect } from 'react-router-dom';
-import { updateContact } from '../contact';
+import { Form, redirect, useLoaderData } from "react-router-dom";
+import { updateContact } from "../contact";
 
 
-export const action = async ({ request, params }) => {
-    // console.log("this is request in edit component", request);
+export async function myAction({ params, request }) {
     const formData = await request.formData();
-    console.log("this is request in edit component", request);
-
+    
     const updates = Object.fromEntries(formData);
-    console.log("this updates edit component", updates);
+    
     await updateContact(params.contactId, updates);
     return redirect(`/contacts/${params.contactId}`);
+}
+// edit completed
 
-};
+
+
 
 
 
 
 export default function EditContact() {
     const { contact } = useLoaderData();
-    console.log("this is in edit component", contact);
+
     return (
         <Form method="post" id="contact-form">
             <p>
-                <span>Name:</span>
+                <span>Name</span>
                 <input
+                    placeholder="First"
+                    aria-label="First name"
                     type="text"
-                    placeholder="Enter First Name"
                     name="first"
-                    aria-label="first name"
                     defaultValue={contact?.first}
-
                 />
                 <input
+                    placeholder="Last"
+                    aria-label="Last name"
                     type="text"
-                    placeholder="Enter Last Name"
                     name="last"
-                    aria-label="last name"
                     defaultValue={contact?.last}
-
                 />
-
             </p>
             <label>
                 <span>Twitter</span>
@@ -52,7 +49,6 @@ export default function EditContact() {
                     defaultValue={contact?.twitter}
                 />
             </label>
-
             <label>
                 <span>Avatar URL</span>
                 <input
@@ -61,7 +57,6 @@ export default function EditContact() {
                     type="text"
                     name="avatar"
                     defaultValue={contact?.avatar}
-
                 />
             </label>
             <label>
@@ -69,7 +64,7 @@ export default function EditContact() {
                 <textarea
                     name="notes"
                     defaultValue={contact?.notes}
-                    rows={10}
+                    rows={6}
                 />
             </label>
             <p>
