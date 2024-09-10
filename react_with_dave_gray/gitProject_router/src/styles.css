@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+} */
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* height: 50px; */
+    /* position: absolute;
+    left: 0; */
+    /* top: px; */
+    padding: 0 0.5rem;
+    margin: 5px 0;
+    border: 2px solid #333;
+    background-color: aliceblue;
+    color: #333;
+    border-radius: 0.5rem;
+    /* margin: 0.25rem 0.5rem; */
+}
+
+nav a,
+.link {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: hsl(39, 100%, 50%);
+    padding: 1rem 1.5rem;
+    /* border-radius: 5px; */
+    background-color: lightgray;
+    border-right: 1px solid #000;
+}
+
+nav a:hover,
+.link {
+    background-color: #000;
+    color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.active {
+    background-color: darkorange;
+    color: #f5f5f5;
+}
+
+.logo-nav {
+    margin-left: 50px;
+    margin-right: auto;
+}
+
+.link-cont {
+    margin-right: 50px;
+    /* width: 20%; */
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.main {
+    flex-grow: 1;
+}
+
+.repo-desc {
+    font-size: 10px;
+}
+
+.users-cont {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+.user-card-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 23%;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px solid #333;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    margin: 0.5rem 0.25rem;
+}
+
+.user-avatar {
+    width: 70%;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem 1rem 0 0;
+
+}
+
+.username {
+    /* border-top: 2px solid black; */
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.content-container {
+    width: 100%;
+    /* margin-top: 5px; */
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    border-top: 2px solid black;
+    background-color: aliceblue;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.top-cont {
+    display: flex;
+}
+
+.user-avatar-img {
+    width: 30%;
+}
+
+.name-cont {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-cont {
+    flex: 1;
+    border-top: 1px solid lightgray;
+    margin-top: 10px;
+}
+
+.repo-lang-span {
+    font-size: 1.25rem;
+    font-weight: 700;
+
+}
+
+.repo-owner {
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    background-color: hsl(37, 100%, 92%);
+    color: #f5f5f5;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 2px 4px hsl(16, 100%, 76%);
+
+}
+
+.repo-owner:hover {
+    background-color: hsl(37, 100%, 92%);
+}
+
+.repo-owner:active {
+    box-shadow: 3px 6px hsl(37, 100%, 82%)
+}
+
+.follow-cont {
+    white-space: nowrap;
+}
+
+.followers {
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.btn {
+    display: block;
+    text-align: center;
+    padding-inline: 1.75rem;
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 1rem;
+    outline: none;
+    background-color: #212121;
+    color: #fff;
+    box-shadow: 3px 5px gray;
+    height: 48px;
+    cursor: pointer;
+}
+
+.btn:focus {
+    border: 2px solid cornflowerblue;
+}
+
+.btn:active {
+    box-shadow: 4px 7px gray;
+}
+
+.btn:hover {
+    background-color: rebeccapurple;
+
+}
+
+.aboutUs,
+.errorPage {
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+    border: 2px solid darkgrey;
+    min-height: 80vh;
+    margin: 0.5rem 0.25rem;
+}
+
+.errorPage {
+    min-height: 100vh;
+}
+
+.aboutUs h1,
+.heading {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: coral;
+}
+
+.link {
+    font-size: 2rem;
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+}
+
+.link:hover {
+    background-color: dodgerblue;
+
+}
+
+
+.user-card {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    width: 32%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    margin: 5px;
+    border-radius: 1rem;
+}
+
+.img-container {
+    max-width: 800px;
+
+
+}
+
+.img-container img {
+    /* width: 100%; */
+    height: auto;
+    /* max-width: max-content; */
+    border-radius: 5px;
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.img-container img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.loading {
+    opacity: 0.25;
+    transition: opacity 200ms;
+    transition-delay: 200ms;
+}
+
+.para {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: red;
+    /* font-style: italic; */
+    /* text-align: cente; */
+}
+
+.user-profile-main-cont2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+}
+
+user-avatar-img {
+    width: 30%;
+  }
+  .name-cont {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bottom-cont {
+    flex: 1;
+    border-top: 1px solid lightgray;
+    margin-top: 10px;
+  }
+  
+  .follow-cont {
+    white-space: nowrap;
+  }
+  .followers {
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+
+
+
+/* spinner */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
