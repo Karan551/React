@@ -11,6 +11,93 @@
     npm run dev
     ```
 -----
+## What Is React :-
+- **React is a JavaScript library for rendering user interfaces (UI). UI is built from small units like buttons, text, and images. React lets you combine them into reusable, nestable components. From web sites to phone apps, everything on the screen can be broken down into components.**
+
+## What Is Component :-
+- **React component is a JavaScript function that you can sprinkle(spray) with markup(HTML).**
+- **In a React app, every piece of UI is a component.**
+- **React Components are regular JavaScript Functions except :-**
+  -  **Their names always begin with a capital letter or they won't work.**
+  -  **They return JSX markup(HTML).**
+  -  **If we not write Component names with Capital Letter react will ignore that.**
+
+### How To Create React Components :-
+- There are three steps that we follow to create react components :-
+  1. **Export The Component**
+  2. **Define The function**
+  3. **Add Markup(HTML)**
+    
+    ```JSX
+    export default function Greet(){
+      return (
+        <h1>Hello World !</h1>
+      );
+    }
+    ```
+- Components are one of the core concepts of React. They are the foundation upon which you build user interfaces (UI).
+- We can use thousands of components shared by the React open source community like [Chakra UI](https://v2.chakra-ui.com/getting-started) and [Material UI](https://mui.com/material-ui/).
+  > [!Note]
+  > **Components can render other components, but you must never nest their definitions.**
+  - **For Example :-** 👇
+  ```JSX
+  export default function Gallery(){
+
+    // We should not to do this
+    function Profle(){
+
+    }
+  }
+  // Above Snippet is very slow and buggy.
+  ```
+  - **Instead of define every Component At the top level.**
+  - **When a child component needs some data from a parent, pass it by props instead of nesting definitions.**
+  ```JSX
+  // First Component Definition
+  export default Gallery(){
+    return(
+      
+      /// Code Here
+      
+    );
+  }
+  // Second Component Definition
+  function Profile(){
+    return(
+      // Write Code Here
+    );
+  }
+ 
+  ``` 
+-----
+## What Is JSX :-
+
+- **JSX is a syntax extension for JavaScript that lets you write HTML-like markup inside a JavaScript file.**
+- **React, rendering logic and markup live together in the same place—components.**
+- **Each React component is a JavaScript function that may contain some markup that React renders into the browser. React components use a syntax extension called JSX to represent that markup. JSX looks a lot like HTML, but it is a bit stricter and can display dynamic information. The best way to understand this is to convert some HTML markup to JSX markup.**
+
+### Rules Of JSX :- 👇
+<h4> 1. &nbsp;Return Single Root Element:- </h4>
+
+- **To return multiple elements from a component, wrap them with a single parent tag.**
+- We can use `<div>`.
+- **If you don’t want to add an extra `<div>` to your markup, you can write `<>` and `</>` instead.**
+- **Fragment `<> </>` :-** 👉 **This empty tag is called a Fragment. Fragments let you group things without leaving any trace in the browser HTML tree.**
+  - **Why do multiple JSX tags need to be wrapped?**
+    - **JSX looks like HTML, but under the hood it is transformed into plain JavaScript objects. We can’t return two objects from a function without wrapping them into an array.** 
+    - **We can’t return two JSX tags without wrapping them into another tag or a Fragment.**   
+
+<h4> 3. &nbsp;Close all the tags:- </h4>
+
+- **JSX requires tags to be explicitly closed: self-closing tags like `<img>` must become `<img />`** 
+
+<h4> 2. &nbsp;camelCase Most Of The Things:- </h4>
+
+- We can use JSX [converter](https://transform.tools/html-to-jsx).
+- [Clice Here](https://react.dev/learn/writing-markup-with-jsx) To Know More About JSX.
+
+
+-----
 ## What we can render in react :-
 - We can render `string` ,`array` and `number` also but we cannot render `object` , `boolean` expression.
 
