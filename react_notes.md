@@ -11,10 +11,10 @@
     npm run dev
     ```
 -----
-## What Is React :-
+## ⭐ What Is React :-
 - **React is a JavaScript library for rendering user interfaces (UI). UI is built from small units like buttons, text, and images. React lets you combine them into reusable, nestable components. From web sites to phone apps, everything on the screen can be broken down into components.**
 
-## What Is Component :-
+## ⭐ What Is Component :-
 - **React component is a JavaScript function that you can sprinkle(spray) with markup(HTML).**
 - **In a React app, every piece of UI is a component.**
 - **React Components are regular JavaScript Functions except :-**
@@ -51,7 +51,7 @@
   // Above Snippet is very slow and buggy.
   ```
   - **Instead of define every Component At the top level.**
-  - **When a child component needs some data from a parent, pass it by props instead of nesting definitions.**
+  - **When a child component needs some data from a parent, pass it by `props` instead of nesting definitions.**
   ```JSX
   // First Component Definition
   export default Gallery(){
@@ -70,7 +70,7 @@
  
   ``` 
 -----
-## What Is JSX :-
+## ⭐ What Is JSX :-
 
 - **JSX is a syntax extension for JavaScript that lets you write HTML-like markup inside a JavaScript file.**
 - **React, rendering logic and markup live together in the same place—components.**
@@ -95,8 +95,81 @@
 
 - We can use JSX [converter](https://transform.tools/html-to-jsx).
 - [Clice Here](https://react.dev/learn/writing-markup-with-jsx) To Know More About JSX.
+-----
+## ⭐ JavaScript In JSX With Curly Braces :-
+- In `JSX` we can write `JavaScript` in **Curly Braces { }**
+- `JSX` is a special way of writing `JavaScript`. That means it’s possible to use `JavaScript` inside it—with **curly braces { }.**
 
+- **We can pass `strings`, `numbers`, and *other JavaScript expressions*, we can even pass `objects` in `JSX`.**
 
+### Where we should use curly braces :-
+- **We can only use curly braces in two ways inside JSX:**
+
+1. **As text directly inside a JSX tag:** 👉 &nbsp; **`<h1>Hello {name}</h1>` works ; Here name is variable ,but `<{tag}>Hello Master</{tag}>` will not.**
+2. **As attributes immediately following the = sign:** 👉&nbsp; **`src={avatar}` will read the avatar variable, but `src="{avatar}"` will pass the string `"{avatar}"`.**
+
+### Using “double curlies”: CSS and other objects in JSX :-
+
+- **We can pass `strings`, `numbers`, and *other JavaScript expressions*, we can even pass `objects` in `JSX`.**
+- **Objects are also denoted with curly braces, like `{ name: "Hedy Lamarr", inventions: 5 }`. Therefore, to pass a JS object in `JSX`;** <br/> **We must wrap the `object` in *another pair of curly braces* : `person = {{ name: "Hedy Lamarr", inventions: 5 }}`.**
+- We can see this with inline CSS styles in JSX. React does not require you to use inline styles (CSS classes work great for most cases). But when we need an inline style, we pass an object to the style attribute:
+- **For Example:-** 👇
+  ```JSX
+  <h1 style={{
+      backgroundColor: 'black',
+      color: 'white'}}>
+    Hello World 
+  </h1>
+  ``` 
+-----
+## ⭐ Passing Props to a Component :-
+
+- **React components use `props` to communicate with each other. Every parent component can pass some information to its child components by giving them `props`. Props might remind you of HTML attributes, <br/>  *We can pass any JavaScript value* like :- `string` , `number`, `objects`, `arrays`, and `functions(function reference)`.**
+- **Props are the information that you pass to a JSX tag.**<br/> **For example :-** 👉 `className`, `src`, `alt`, `width`, and `height` are some of the `props` we can pass to an `<img>`.
+- There are two steps to use props in components :-
+
+  ### 🌟 Step:-1 Pass props to the child component :-
+  - First Pass some props to child component
+  - **For Example :-** 👇
+    ```JSX
+    export default function Profile() {
+    return (
+
+      {/* child component  */}
+      <Avatar
+        {/* pass an object, person(props)  */}
+        person={{ name: 'Lin Lanying', imageId: '1bX5QH6' }}
+
+        {/*  passing a number size(props)  */}
+        size={100}
+      />
+      );
+    }
+    ``` 
+  - Now we can read these `props` inside the **Avatar** component.
+
+ 
+  ### 🌟 Step:-2 Read props inside the child component :-
+
+  - **We can read these `props` by listing their names `person`, `size` separated by the commas inside curly braces ({ and }) directly after function Avatar. This lets you use them inside the Avatar code, like you would with a variable.**
+  - **For Example :-** 👇
+    ```JSX
+    function Avatar({ person, size }) {
+    // person and size are available here
+    }
+    ```
+  - We can think of props like “knobs” that we can adjust. They serve the same role as arguments serve for `functions` Infact, `props` are the only argument to our component! **React component functions accept a single argument, a props object.**
+  ##### 🌟 **Default Value For a prop :-**
+
+  - **If We want to give a prop a default value to fall back on when no value is specified, we can do it with the destructuring by putting `=` and the default value right after the parameter.**
+  - **For Example:-** 👇
+    ```JSX
+    function Avatar({ person, size = 100 }) {
+    // ...
+    }
+    ``` 
+  - **The default value is only used if the `size` `prop` is missing or if we pass `size={undefined}`. But if we pass `size={null}` or `size={0}`, then *default value will not be used*.**
+  - [Click Here](https://react.dev/learn/passing-props-to-a-component) **to know more about props.**
 -----
 ## What we can render in react :-
 - We can render `string` ,`array` and `number` also but we cannot render `object` , `boolean` expression.
