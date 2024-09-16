@@ -5,35 +5,23 @@ import './index.css';
 
 
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import View from './Components/View.jsx';
+import View, { getMovieInfo } from './Components/View.jsx';
 import Form from './Components/Form.jsx';
 import Layout from './Layout.jsx';
 import Detail from './Components/Detail.jsx';
 
-/* const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <View />
-      },
-      {
-        path: "show",
-        element: <Info />
-      }
-    ]
-  },
-]); */
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
+      <Route index={true} element={<App />} />
+
+      <Route path='view' element={<View />} />
 
 
 
-      <Route path='detail/:id' element={<Detail />} />
+      <Route loader={getMovieInfo} path='detail/:id' element={<Detail />} />
 
     </Route>
   ));

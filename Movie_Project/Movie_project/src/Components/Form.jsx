@@ -7,7 +7,7 @@ function Form() {
     const [inputValue, setInputValue] = useState("");
     const [search, setSearch] = useState(false);
 
-    const [movieData, setMovieData] = useState([]);
+   
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
 
@@ -18,11 +18,11 @@ function Form() {
 
 
 
-    async function getMovie(input) {
+    async function getMovie() {
 
         try {
             setLoading(true);
-            const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${conf.mykey}&s=${input.toLowerCase()}`);
+            const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${conf.mykey}&s=${inputValue.toLowerCase()}`);
             const data = await response.json();
             console.log("This is data in ---", data);
 
@@ -45,7 +45,7 @@ function Form() {
     const handleSubmit = (e) => {
         console.log("Form is submitted");
         e.preventDefault();
-        getMovie(inputValue);
+        getMovie();
         setSearch(true);
 
     };
@@ -72,7 +72,7 @@ function Form() {
     return (
         <>
 
-            <div className='bg-white px-4 py-4 rounded-lg w-2/3 mx-auto flex space-x-2 justify-center' id="form-container">
+            <div className='bg-white px-4 py-4 rounded-lg w-full flex space-x-2 justify-center' id="form-container">
                 <form className="flex space-x-2" onSubmit={handleSubmit}>
                     <div className="input-box">
 
@@ -101,9 +101,9 @@ function Form() {
                 </form>
             </div>
 
-            {
+            {/* {
                 movieData && <View movies={movieData} />
-            }
+            } */}
 
 
         </>
