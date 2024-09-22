@@ -64,7 +64,7 @@ function View() {
             }
 
             const data = await response.json();
-            // console.log("this is upcoming data", data);
+           
             if (data.Response) {
                 setMoviesData(data.Search);
                 setResults(data.totalResults);
@@ -87,7 +87,6 @@ function View() {
     const ITEM_PER_PAGE = 10;
     const totalRequirePage = Math.ceil(results / ITEM_PER_PAGE);
 
-    // i=tt3896198&
     useEffect(() => {
         getMovie(pageNumber + 1);
     }, [pageNumber]);
