@@ -22,7 +22,7 @@ nav {
     align-items: center;
 }
 
-button {
+button.btn {
     font: inherit;
     margin: 1em;
     padding: 1em;
@@ -92,4 +92,30 @@ p::first-letter {
 img{
     border-radius: 1rem;
     display: block;
+}
+.container{
+    display: flex;
+    flex-flow: wrap;
+    /* justify-content: center; */
+    gap: 10px;
+    max-width:1440px;
+    width: 100%;
+    margin: 5px auto;
+}
+.text-cente{
+    text-align: center;
+}
+.p-2{
+    padding: 10px 15px;
+}
+.card{
+    padding: 10px 15px;
+    border:2px solid gray;
+    border-radius: 1rem;
+    width: 32%;
+    padding: 10px 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    /* justify-content: center; */
 }

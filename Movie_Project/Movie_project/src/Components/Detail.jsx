@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useParams, useLoaderData } from "react-router-dom";
-import conf from "../conf/config";
+import React, { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Poster from "../images/Poster.jpeg";
 import { Link } from "react-router-dom";
 
@@ -20,64 +19,25 @@ async function currencyInfo() {
 }
 
 function Detail() {
-    const { id } = useParams();
     const data = useLoaderData();
 
-    console.log("this is loader data", data);
-    console.log("This my id ", id);
-
-    const [movieData, setMovieData] = useState({});
-    const [errorMsg, setErrorMsg] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [currency, setCurrency] = useState("");
 
     currencyInfo()
         .then((data) => setCurrency(data["usd"]["inr"]))
-        // .then(data=>console.log(data['usd']['inr']*2))
         .catch((error) => setErrorMsg(error.message));
 
     const totalRupee = (amount) => {
-        let actualAmount = Number(amount.replaceAll(",", "").slice(1));
-        return parseInt(currency * actualAmount).toLocaleString('en-IN')
+        let actualAmount = Number(amount?.replaceAll(",", "").slice(1));
+        return parseInt(currency * actualAmount).toLocaleString('en-IN');
     };
-
-    const getInformation = useCallback(async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(
-                `http://www.omdbapi.com/?apikey=${conf.mykey}&i=${id}`
-            );
-
-            const data = await response.json();
-            console.log("this is data", data);
-            if (data) {
-                setLoading(false);
-                setMovieData(data);
-            }
-        } catch (error) {
-            console.log("Movie Information error :", error.message);
-            setErrorMsg(error.message);
-        }
-    }, [id]);
-
-    // const myData = useLoaderData();
-    // console.log("this is movie data",getInformation)
-    console.log("each movie data is :", data);
-
-    useEffect(() => {
-        getInformation();
-    }, [id]);
-
-    if (loading) {
-        <div>Data is loading Please Wait.</div>;
-    }
 
     return (
         <>
-            <section className="grid grid-cols-1 md:grid-cols-2 space-x-2 gap-3 py-2 px-2">
+            <section className="grid grid-cols-1 md:grid-cols-2 space-x-2 gap-3 py-2 px-2 dark:bg-gray-500">
                 {data && (
                     <>
-                        <div className="max-w-md px-6 py-2 border-2  bg-white rounded-lg w-full lg:max-w-[28rem]cells md:justify-self-center">
+                        <div className="max-w-md px-6 py-2 border-2  bg-white rounded-lg w-full lg:max-w-[28rem]cells md:justify-self-center dark:bg-gray-600">
                             <img
                                 className="rounded-xl h-auto w-full object-cover block "
                                 src={data.Poster != "N/A" ? data.Poster : Poster}
@@ -85,7 +45,7 @@ function Detail() {
                             />
                         </div>
 
-                        <div className=" px-6 py-2 bg-white rounded-xl ">
+                        <div className=" px-6 py-2 bg-white rounded-xl dark:text-white dark:bg-gray-600 dark:border-white dark:border">
                             <p className="mb-1 text-xl md:text-2xl">
                                 <strong className="text-orange-500">Movie Name :-</strong>{" "}
                                 {data.Title}
@@ -103,14 +63,14 @@ function Detail() {
                                 {data.Awards}
                             </p>
 
-                            {data.BoxOffice != "N/A" && (
+                            {data.BoxOffice && data.BoxOffice != "N/A" && (
                                 <p className="my-3 text-xl md:text-2xl">
                                     <strong className="text-orange-500/85">BoxOffice :- </strong>
-                                    {data.BoxOffice} <br/>
-                                    <span className="text-green-700">
-                                    <strong>Indian Currency :- </strong>
-                                    
-                                       &nbsp; {totalRupee(data.BoxOffice)} &#8377;
+                                    {data.BoxOffice} <br />
+                                    <span className="text-green-700 dark:text-green-500">
+                                        <strong>Indian Currency :- </strong>
+
+                                        &nbsp; {totalRupee(data.BoxOffice)} &#8377;
                                     </span>
                                 </p>
                             )}
@@ -138,26 +98,30 @@ function Detail() {
                                 <strong className="text-orange-500/85">Writer :-</strong>{" "}
                                 {data.Writer}
                             </p>
-                            <div>
-                                <p className="mb-1 text-xl md:text-2xl">
-                                    {" "}
-                                    <strong className="text-orange-500/85">
-                                        Ratings :-
-                                    </strong>{" "}
-                                </p>
-                                <ul className="px-8 marker:text-black list-disc text-lg md:text-2xl">
-                                    {data.Ratings.map((eachRating) => (
-                                        <li className="text-[dodgerblue]">
-                                            {eachRating.Source + " " + eachRating.Value}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {
+                                data.Ratings && <div>
+
+                                    <p className="mb-1 text-xl md:text-2xl">
+                                        {" "}
+                                        <strong className="text-orange-500/85">
+                                            Ratings :-
+                                        </strong>{" "}
+                                    </p>
+                                    <ul className="px-8 marker:text-black list-disc text-lg md:text-2xl dark:marker:text-white">
+                                        {data.Ratings.map((eachRating, index) => (
+                                            <li className="text-[dodgerblue] dark:text-[#f5f5f5]" key={index}>
+                                                {eachRating.Source + " " + eachRating.Value}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                </div>
+                            }
 
                             <Link to="/view">
                                 <button
                                     type="button"
-                                    className="inline-block mt-6 px-6 py-3 font-semibold  text-lg text-white bg-teal-500 rounded-xl hover:bg-teal-700"
+                                    className="inline-block mt-6 px-6 py-3 font-semibold  text-lg text-white bg-teal-500 rounded-xl hover:bg-teal-700 dark:border dark:border-white"
                                 >
                                     Back To Home
                                 </button>
@@ -165,7 +129,11 @@ function Detail() {
                         </div>
                     </>
                 )}
+
+
+
             </section>
+
         </>
     );
 }

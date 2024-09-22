@@ -3,6 +3,7 @@ import Example1 from './Components/Example1';
 import Example2 from './Components/Example2';
 import { QueryClientProvider, QueryClient, useQuery } from "@tanstack/react-query";
 import "./styles.css";
+import Example3 from './Components/Example3';
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,9 @@ function App() {
       {/* <Example1/> */}
       <QueryClientProvider client={queryClient}>
 
-        <Example2 />
+        {/* <Example2 /> */}
+     <Example3/>
+        
       </QueryClientProvider>
 
     </>

@@ -9,13 +9,21 @@
 }
 
 .active {
-  color: orange;
+  color: orange
 }
 
-.cells {
-  grid-row: span 2 / auto;
-  grid-column: span 2 / auto;
+.btn-active {
+  color: white;
+  background-color: red;
 }
+
+.loading {
+  opacity: 0.25;
+  transition: opacity 200ms;
+  transition-delay: 200ms;
+  
+}
+/*  */
 
 /* spinner */
 

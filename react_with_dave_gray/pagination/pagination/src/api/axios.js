@@ -4,7 +4,7 @@ const axiosOne = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com'
 });
 
-export const getPosts = async (pageNumber=1) => {
+export const getPosts = async (pageNumber = 1) => {
     const response = await axiosOne.get(`/posts?_page=${pageNumber}`);
     return response.data;
 };
@@ -17,4 +17,11 @@ export const getUsersPage = async (pageNumber) => {
     const response = await axiosTwo.get(`/users?page=${pageNumber}`);
 
     return response.data;
+};
+
+export const getPhotos = async (pageNumber = 1) => {
+    const response = await axiosOne.get(`/photos?_page=${pageNumber}`);
+
+    console.log("This is data", response);
+    return await response.data;
 };
