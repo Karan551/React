@@ -53,9 +53,10 @@ class AuthService {
             return await this.account.get();
         } catch (error) {
             console.log("Error in current user :: ", error);
-            throw new Error(error);
+            // throw new Error(error);
+            // TODO: check again
         }
-        // return null;
+        return null;
     }
 };
 
