@@ -5,5 +5,7 @@ export const conf = {
     appWriteDataBaseID: import.meta.env.VITE_APPWRIRTE_DATABASE_ID,
     appWriteCollectionID: import.meta.env.VITE_APPWRIRTE_COLLECTION_ID,
 
-    appWriteBucketID: import.meta.env.VITE_APPWRIRTE_BUCKET_ID
+    appWriteBucketID: import.meta.env.VITE_APPWRIRTE_BUCKET_ID,
+
+    tinyMceApiKey: import.meta.env.VITE_TINYMCE_API_KEY
 };

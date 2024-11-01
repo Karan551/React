@@ -1,0 +1,60 @@
+import React from 'react';
+import { conf } from "../conf/config";
+import { Editor } from "@tinymce/tinymce-react";
+import { Controller, useForm } from "react-hook-form";
+
+
+
+export default function RTE({ label, name, control, defaultValues = "" }) {
+    
+
+    return (
+        <section className="w-full my-2 ">
+
+            {label && <label className="inline-block mb-1 pl-1">{label}</label>}
+
+
+            <Controller
+                name={name || "content"}
+                control={control}
+                initialValue={defaultValues}
+                render={({ field: { onChange } }) => (
+                    <Editor
+
+                        apiKey={conf.tinyMceApiKey}
+                        init={{
+                            selector: "textarea",
+                            placeholder: "Write Your Content Here...",
+                            // content_css: '../index.css',
+                            plugins: ['advlist', 'anchor', 'autolink', 'help', 'image', 'link', 'lists',
+                                'searchreplace', 'table', 'wordcount', 'preview', 'media', 'pagebreak', 'fullscreen', 'emoticons', 'code', 'codesample', 'insertdatetime', 'charmap',],
+
+                            toolbar: ' blocks | fontfamily|fontsizeinput|alignleft aligncenter alignright alignjustify|bold italic underline strikethrough |forecolor backcolor | bullist numlist outdent indent ',
+                            height: 400,
+                            width: 840,
+                            menubar: true,
+                            link_default_target: '_blank',
+                            branding: false,
+                            resize: 'both',
+                            mobile: {
+                                menubar: true
+                            },
+
+                            font_size_input_default_unit: "px",
+                            statusbar: false,
+
+
+
+                        }}
+                        onEditorChange={onChange}
+                    />
+                )}
+
+
+            />
+
+
+
+        </section>
+    );
+}

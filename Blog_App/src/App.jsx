@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, Footer } from "./components/index";
+import { Header, Footer, Login, SignUp, RTE, MyRTE, PostForm } from "./components/index";
 import authService from "./appwrite/auth";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./features/blog/blogSlice";
@@ -27,14 +27,20 @@ function App() {
 
   return !loading ? (
 
-    <div className="min-h-screen flex  flex-col flex-wrap conten-between bg-gray-400">
+    <div className="min-h-screen flex flex-col flex-wrap conten-between bg-gray-400">
+      {/* <div className="w-full block"> */}
       <Header />
-     
-        <main className="flex-grow grid place-content-center text-3xl">
-          main components
-        </main>
-      
+
+      <main className="flex-grow grid place-content-center text-3xl">
+        {/* <Login/> */}
+        {/* <SignUp /> */}
+        {/* <RTE /> */}
+        {/* <MyRTE /> */}
+        <PostForm/>
+      </main>
+
       <Footer />
+      {/* </div> */}
     </div>
   )
     : null;
