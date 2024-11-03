@@ -1,35 +1,41 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, Suspense } from 'react';
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
 import dbService from "../../appwrite/dbConfig";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function PostForm({ post }) {
 
+    console.log("this is post in post form::", post);
+    console.log("this is post in post title::", post.title);
 
     const { handleSubmit, register, control, getValues, setValue, watch } = useForm({
         defaultValues: {
             title: post?.title || "",
-            slug: post?.$id || "-",
+            slug: post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
         }
     });
 
     const userData = useSelector((state) => state.myblog.userData);
+    const navigate = useNavigate();
     console.log("This is user data::", userData);
 
     const onSubmit = async (data) => {
-        // ref.current.focus();
+
         // console.log("form is submitted.");
         // console.log("this is data in form::", data);
         // console.log("This is image ::", data['image'][0]);
         // console.log("This is image ::???", data['image'][0]?.name);
 
         // if post is already then do this (To update a post)
+        console.log('this is post to update post:::-', post);
         if (post) {
+            console.log('this is post to update post:::-', post);
             // To upload a new img file
             const file = await dbService.uploadFile(data["image"][0]);
 
@@ -39,27 +45,36 @@ export default function PostForm({ post }) {
             }
 
             //  To update a post
-            const dbPost = await dbService.updatePost(post.$id, { ...data, featureImg: file ? file.$id : undefined });
+            const dbPost = await dbService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined });
 
-            /* if (dbPost) {
-                    // TODO: to navigate user via react-router
-                } */
+            if (dbPost) {
+                // TODO to navigate user via react-router
+                navigate(`/post/${dbPost.$id}`);
+            }
 
         } else {
             // To create a new post 
 
             const file = await dbService.uploadFile(data["image"][0]);
 
-            console.log("this is file returned by appwrite::", file);
+
+
+            // console.log("this is data:: ---for creating post::", data);
 
             if (file) {
                 const fileID = file.$id;
-                data.featureImg = fileID;
-                const dbPost = dbService.createPost({ ...data, userID: userData?.$id });
+                data.featuredImage = fileID;
 
-                /* if (dbPost) {
-                    // TODO: to navigate user via react-router
-                } */
+                // console.log("this is data:: ???---??? for creating post::", data);
+
+                const dbPost = await dbService.createPost({ ...data, userId: userData?.$id });
+
+                // console.log("this is dbPost for new post::", dbPost);
+
+                if (dbPost) {
+
+                    navigate(`/post/${dbPost.$id}`);
+                }
             }
         }
 
@@ -74,7 +89,7 @@ export default function PostForm({ post }) {
                 .trim()
                 .toLowerCase()
                 .replace(/[^a-zA-Z\d]+/g, "-")
-                // .replace(/\s/g, "-");
+                .replace(/\s/g, "-");
         }
         return "";
 
@@ -84,7 +99,6 @@ export default function PostForm({ post }) {
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
-            console.log("This is value::", value);
             if (name === "title") {
                 setValue("slug", slugTransForm(value.title), { shouldValidate: true });
             }
@@ -124,12 +138,14 @@ export default function PostForm({ post }) {
                     onInput={(e) => setValue("slug", slugTransForm(e.currentTarget.value), { shouldValidate: true })}
 
                 />
-                <RTE
-                    label="Content :"
-                    name="content"
-                    control={control}
-                    defaultValues={getValues("content")}
-                />
+                <Suspense fallback={<Spinner />}>
+                    <RTE
+                        label="Content :"
+                        name="content"
+                        control={control}
+                        defaultValues={getValues("content")}
+                    />
+                </Suspense>
             </div>
 
             <div className="w-1/4 ">
@@ -156,4 +172,9 @@ export default function PostForm({ post }) {
             </div>
         </form>
     );
+}
+
+
+function Spinner() {
+    return <h1 className='loader'>Loading...</h1>;
 }

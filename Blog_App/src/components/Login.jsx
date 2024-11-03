@@ -4,11 +4,14 @@ import { useForm } from 'react-hook-form';
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
 import { login as blogLogin } from "../features/blog/blogSlice";
+import { toast } from "react-toastify";
+import { useNavigate, Link } from 'react-router-dom';
 
 
 export default function Login() {
     const [errMsg, setErrMsg] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const login = async (data) => {
@@ -19,9 +22,25 @@ export default function Login() {
             console.log("this is session in login :: ", session);
             if (session) {
                 const userData = await authService.getCurrentUser();
+                console.log("this is userdata in login::", userData);
+
                 if (userData) {
                     dispatch(blogLogin(userData));
-                    //TODO: Here we will navigate to '/' via router
+
+                    // To show notification
+                    toast.success("Login Succesfully.", {
+                        duration: 2000,
+                        position: "top-center",
+                        icon: "✅",
+                        className: "flex text-2xl font-semibold px-2",
+                        ariaProps: {
+                            role: "status",
+                            "aria-live": "polite",
+                        },
+                    });
+
+                    // go to home page
+                    navigate("/");
                 }
             }
 
@@ -35,7 +54,7 @@ export default function Login() {
     return (
         <section className="flex items-center justify-center w-full">
 
-            <div className="mx-auto flex items-center justify-center flex-col w-full max-w-2xl bg-gray-100 rounded-xl p-10 border border-black/50 my-3 bg-cover bg-no-repeat "
+            <div className="mx-auto flex items-center justify-center flex-col w-full max-w-lg md:max-w-2xl bg-gray-100 rounded-xl px-5  py-3 border border-black/50 my-3 bg-cover bg-no-repeat "
 
                 style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2021/08/07/19/49/cosmea-6529220_960_720.jpg")` }}
             >
@@ -53,7 +72,7 @@ export default function Login() {
                     onClick={() => setErrMsg("")}
                 >X</span></div>}
 
-                <form className="bg-gray-100/80 p-4 my-6 rounded-lg backdrop-blur-sm max-w-2xl w-full mx-auto border border-gray-100"
+                <form className="bg-gray-100/80 p-4 my-6 rounded-lg backdrop-blur-sm max-w-lg w-full mx-auto border border-gray-100 text-base md:text-2xl"
                     onSubmit={handleSubmit(login)}
                 >
                     <Input
@@ -97,7 +116,7 @@ export default function Login() {
                         bgColor='bg-teal-500'
                     />
 
-                    <p className="my-2 text-center text-xl text-black">Don't Have an account ? Sign Up <a href="#" className="hover:underline text-blue-500 hover:text-blue-700">Here</a></p>
+                    <p className="my-2 text-center text-xl text-black">Don't Have an account ? Sign Up <Link to="/signup" className="hover:underline text-blue-500 hover:text-blue-700">Here</Link></p>
                 </form>
 
             </div>

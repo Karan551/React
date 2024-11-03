@@ -10,11 +10,10 @@ const blogSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            console.log("this is state", state);
+
             state.status = true;
-            //
-            console.log("this is payload::", action.payload);
-            state.userData = action.payload.userData;
+            // console.log("this is payload::", action.payload);
+            state.userData = action.payload;
         },
         logout: (state) => {
             state.status = false;

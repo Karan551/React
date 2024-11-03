@@ -1,11 +1,17 @@
 
 import { Container, Logo } from "../index";
 import { useSelector } from "react-redux";
+import { NavLink, Link, useNavigate, useNavigation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import LogoutBtn from "./LogoutBtn";
 
 export default function Header() {
     const authStatus = useSelector((state) => state.myblog.status);
+    const navigate = useNavigate();
+    const navigation = useNavigation();
+
     // console.log("this is auth status::", authStatus);
     // TODO: To navigate user via onclick
     const navItems = [
@@ -36,14 +42,15 @@ export default function Header() {
         },
     ];
     return (
-        <header className='py-3 shadow bg-gray-500 text-white font-semibold text-xl'>
+        <header className={"py-3 shadow bg-gray-500 text-white font-semibold text-base md:text-xl"}>
             <Container>
-                {/* <h1 className='text-blue-500 text-4xl text-center bg-orange-400 p-4'>Mega Blog Project</h1> */}
+                <ToastContainer />
+
                 <nav className="flex">
-                    <div className="mr-4">
-                        <a href="#">
-                           <Logo/>
-                        </a>
+                    <div className="md:mr-4 hidden md:block">
+                        <Link to="/">
+                            <Logo />
+                        </Link>
                     </div>
 
                     <ul className="flex ml-auto">
@@ -51,7 +58,9 @@ export default function Header() {
                             navItems.map((eachItem) => (
                                 eachItem.active ?
                                     <li key={eachItem.name}>
-                                        <button className='inline-bock px-6 py-2 duration-200 hover:bg-blue-500 rounded-full'>{eachItem.name}</button>
+                                        <button className='inline-bock px-6 py-2 duration-200 hover:bg-blue-500 rounded-full'
+                                            onClick={() => navigate(eachItem.slug)}
+                                        >{eachItem.name}</button>
                                     </li>
 
                                     : null

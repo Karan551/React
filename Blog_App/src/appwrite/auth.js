@@ -42,7 +42,9 @@ class AuthService {
 
     async logout() {
         try {
-            await this.account.deleteSessions();
+            const result = await this.account.deleteSessions();
+            console.log("This is appwrite logout result::", result);
+            return { message: "Successfully Logged Out", status: true };
         } catch (error) {
             console.log("Appwrite service logout error :: ", error);
             throw new Error(error);

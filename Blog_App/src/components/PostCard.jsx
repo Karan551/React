@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import dbService from "../appwrite/dbConfig";
+import { Link } from 'react-router-dom';
 
-export default function PostCard({ id, title, featuredImg }) {
-// TODO: use Link in react-router-dom
+export default function PostCard({ $id, title, featuredImage }) {
+
+    const [imgSrc, setImgSrc] = useState(null);
+
+    const imgLoading = async () => {
+        const result = await dbService.filePreview(featuredImage);
+        setImgSrc(result);
+    };
+
+    useEffect(() => {
+        imgLoading();
+    }, []);
+
+
     return (
-        <a href='#'>
-        <div className='w-full bg-gray-100 rounded-xl p-4'>
-            <div className="mb-4 w-full">
-                <img src={dbService.filePreview(featuredImg)} alt={title} className='rounded-xl' />
+        <Link to={`/post/${$id}`}>
+            <div className='w-full bg-gray-100 rounded-xl p-4'>
+                <div className="mb-4 w-full">
+                    <img src={imgSrc} alt={title} className='rounded-xl' />
+                </div>
+                <h2 className='text-xl font-bold'>{title}</h2>
             </div>
-            <h2 className='text-xl font-bold'>{title}</h2>
-        </div>
-        </a>
+        </Link>
     );
 }

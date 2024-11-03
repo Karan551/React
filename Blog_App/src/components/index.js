@@ -10,6 +10,8 @@ import SignUp from "./SignUp";
 import RTE from "./RTE";
 import MyRTE from "./MyRTE";
 import PostForm from "./post-form/PostForm";
+import PostCard from "./PostCard";
+import Protected from "./AuthLayout";
 
 
 export {
@@ -25,4 +27,6 @@ export {
     RTE,
     MyRTE,
     PostForm,
+    PostCard,
+    Protected,
 };

@@ -4,11 +4,26 @@ import { Input, Button, Logo } from "./index";
 import authService from '../appwrite/auth';
 import { login } from "../features/blog/blogSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate, Link } from 'react-router-dom';
+import { FaInfoCircle } from "react-icons/fa";
+
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function SignUp() {
   const [errMsg, setErrMsg] = useState("");
+  const [pwdFocus, setPwdFocus] = useState(false);
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  setTimeout(() => {
+    if (pwdFocus) {
+      setPwdFocus(false);
+    }
+  }, 2000);
+
+  // TODO: to add instructions for user in password section
 
   const handleSignUp = async (data) => {
     try {
@@ -19,7 +34,8 @@ export default function SignUp() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login(userData));
-          // TODO: Here we will navigate to '/' component via router
+          //  Here we will navigate to '/' component via router
+          navigate("/");
         }
       }
     } catch (error) {
@@ -28,11 +44,11 @@ export default function SignUp() {
     }
 
   };
-
+  console.log("This is pwdFocus::", pwdFocus);
   return (
-    <section className="flex items-center justify-center w-full">
+    <section className="flex items-center justify-center">
 
-      <div className="mx-auto flex items-center justify-center flex-col w-full max-w-4xl bg-gray-100 rounded-xl px-4 py-5 border border-black/50 my-2 bg-cover bg-no-repeat "
+      <div className="mx-auto  items-center justify-center  w-full max-w-lg md:max-w-2xl bg-gray-100 rounded-xl p-10 border border-black/50 my-2 bg-cover bg-no-repeat "
 
         style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2023/07/23/08/46/flower-8144644_960_720.jpg")` }}
       >
@@ -44,7 +60,7 @@ export default function SignUp() {
           onClick={() => setErrMsg("")}
         >X</span></div>}
 
-        <form className="bg-gray-100/80 px-6 py-4 mt-4 mb-2 rounded-lg backdrop-blur-sm max-w-2xl w-full mx-auto border border-gray-100"
+        <form className="bg-gray-100/80 px-6 py-4 mt-4 mb-2 rounded-lg backdrop-blur-sm max-w-2xl w-full mx-auto border border-gray-100 md:text-2xl"
           onSubmit={handleSubmit(handleSignUp)}
         >
 
@@ -88,10 +104,30 @@ export default function SignUp() {
             label="Password :"
             cssClass="mb-4"
             autoComplete="current-password"
-            {...register("password", { required: "Password is required." })}
+            onFocus={() => setPwdFocus(true)}
+            onBlur={() => setPwdFocus(false)}
+            {...register("password",
+              {
+                required: "Password is required.",
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/,
+
+                  message: `8 to 24 characters. Must include uppercase and lowercase letters a number and a special character. 
+            Allowed special characters
+           ! @ # $ %`
+                }
+
+
+              }
+            )}
 
             aria-invalid={errors.password ? "true" : "false"}
           />
+          <p className={pwdFocus ? `text-xs md:text-sm px-2 py-2 text-white bg-black/70 rounded-lg mr-1 mb-2` : "hidden"} id='pwdnote'><FaInfoCircle />
+            8 to 24 characters.<br /> Must include uppercase and lowercase letters a number and a special character. <br />
+            Allowed special characters
+            <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+          </p>
           {errors.password &&
             <p role="alert"
               className="text-white bg-red-500/80 p-2 rounded-lg text-base font-semibold mb-2"
@@ -105,7 +141,7 @@ export default function SignUp() {
             bgColor='bg-teal-500'
           />
 
-          <p className="my-2 text-center text-xl text-black">Already Have an account ? Login <a href="#" className="hover:underline text-blue-500 hover:text-blue-700">Here</a></p>
+          <p className="my-2 text-center text-xl text-black">Already Have an account ? Login <Link to={"/login"} className="hover:underline text-blue-500 hover:text-blue-700">Here</Link></p>
         </form>
 
       </div>

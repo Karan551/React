@@ -14,7 +14,7 @@ class DbService {
         this.storage = new Storage(this.client);
     }
 
-    async createPost({ slug, title, content, status, featureImg, userID }) {
+    async createPost({ slug, title, content, status, featuredImage, userId }) {
         try {
             return await this.databases.createDocument(
                 conf.appWriteDataBaseID,
@@ -24,8 +24,8 @@ class DbService {
                     title,
                     content,
                     status,
-                    featureImg,
-                    userID
+                    featuredImage,
+                    userId
                 }
             );
         } catch (error) {
@@ -33,7 +33,7 @@ class DbService {
         }
     }
 
-    async updatePost(slug, { title, content, status, featureImg }) {
+    async updatePost(slug, { title, content, status, featuredImage }) {
         try {
             return this.databases.updateDocument(
                 conf.appWriteDataBaseID,
@@ -43,7 +43,7 @@ class DbService {
                     title,
                     content,
                     status,
-                    featureImg
+                    featuredImage
                 }
             );
         } catch (error) {
@@ -65,7 +65,7 @@ class DbService {
         }
     }
 
-    async getPost() {
+    async getPost(slug) {
         try {
             return this.databases.getDocument(
                 conf.appWriteDataBaseID,
@@ -124,7 +124,8 @@ class DbService {
         }
     }
 
-    filePreview(fileID) {
+   async filePreview(fileID) {
+        console.log("this is fileID::in dbConfig", fileID);
         return this.storage.getFilePreview(
             conf.appWriteBucketID,
             fileID
