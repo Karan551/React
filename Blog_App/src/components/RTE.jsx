@@ -6,12 +6,12 @@ import { Controller, useForm } from "react-hook-form";
 
 
 export default function RTE({ label, name, control, defaultValues = "" }) {
-    
+
 
     return (
         <section className="w-full my-2 ">
 
-            {label && <label className="inline-block mb-1 pl-1">{label}</label>}
+            {label && <label className="inline-block text-lg md:text-2xl mb-1 pl-1">{label}</label>}
 
 
             <Controller
@@ -30,8 +30,10 @@ export default function RTE({ label, name, control, defaultValues = "" }) {
                                 'searchreplace', 'table', 'wordcount', 'preview', 'media', 'pagebreak', 'fullscreen', 'emoticons', 'code', 'codesample', 'insertdatetime', 'charmap',],
 
                             toolbar: ' blocks | fontfamily|fontsizeinput|alignleft aligncenter alignright alignjustify|bold italic underline strikethrough |forecolor backcolor | bullist numlist outdent indent ',
-                            height: 400,
-                            width: 840,
+                            // height: 400,
+                            // width: 840,
+                            // height: "100%",
+                            width: "100%",
                             menubar: true,
                             link_default_target: '_blank',
                             branding: false,

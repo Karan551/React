@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export default function PostForm({ post }) {
 
     console.log("this is post in post form::", post);
-    console.log("this is post in post title::", post.title);
+    // console.log("this is post in post title::", post?.title);
 
     const { handleSubmit, register, control, getValues, setValue, watch } = useForm({
         defaultValues: {
@@ -111,17 +111,17 @@ export default function PostForm({ post }) {
 
 
     return (
-        <form className="flex flex-wrap my-2 bg-gray-200 px-4 py-2 max-w-7xl rounded-lg space-x-6 "
+        <form className="flex flex-wrap my-2 bg-gray-200 px-4 py-2 max-w-7xl rounded-lg space-x-6 w-full"
 
             onSubmit={handleSubmit(onSubmit)}
         >
-            <div className="w-2/3">
+            <div className="w-full md:w-2/3">
 
 
                 <Input
                     label="Title :"
                     placeholder="Enter Your Blog Title:"
-                    cssClass="mb-4"
+                    cssClass="mb-4 text-lg md:text-2xl"
 
                     {...register("title", {
                         required: true
@@ -131,24 +131,25 @@ export default function PostForm({ post }) {
                 <Input
                     label="Slug :"
                     placeholder="Enter Your Slug:"
-                    cssClass="mb-4"
+                    cssClass="mb-4 text-lg md:text-2xl"
 
                     {...register("slug", { required: true })}
 
                     onInput={(e) => setValue("slug", slugTransForm(e.currentTarget.value), { shouldValidate: true })}
+                    
 
                 />
-                <Suspense fallback={<Spinner />}>
+                <div className='w-full'>
                     <RTE
                         label="Content :"
                         name="content"
                         control={control}
                         defaultValues={getValues("content")}
                     />
-                </Suspense>
+                </div>
             </div>
 
-            <div className="w-1/4 ">
+            <div className="w-full md:w-1/4 ">
                 <Input
                     label="Featured Image:"
                     type="file"
@@ -158,7 +159,7 @@ export default function PostForm({ post }) {
                 />
                 <Select
                     label="Status"
-                    cssClass="mb-4 w-full"
+                    cssClass="mb-4 w-full text-lg md:text-2xl"
 
                     options={["inactive", "active"]}
                     {...register("status", { required: true })}
@@ -166,7 +167,7 @@ export default function PostForm({ post }) {
                 />
                 <Button
                     children={"Post"}
-                    cssClass="w-full"
+                    cssClass="w-full text-lg md:text-2xl"
                     type="submit"
                 />
             </div>

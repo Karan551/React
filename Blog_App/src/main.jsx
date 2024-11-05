@@ -10,8 +10,8 @@ import AllPost from './pages/AllPost.jsx';
 import AddPost from './pages/AddPost.jsx';
 import EditPost from './pages/EditPost.jsx';
 import Post from './pages/Post.jsx';
-import { Protected as AuthLayout, Login, SignUp } from "./components/index.js";
-import {ImgLoading} from './pages/Post.jsx'
+import { Protected as AuthLayout, Login, SignUp,ForgotPwd } from "./components/index.js";
+import { ImgLoading } from './pages/Post.jsx';
 
 
 const router = createBrowserRouter([{
@@ -36,6 +36,10 @@ const router = createBrowserRouter([{
         <SignUp />
       </AuthLayout>
     )
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPwd />
   },
   {
     path: "/all-posts",
@@ -63,8 +67,12 @@ const router = createBrowserRouter([{
 
   {
     path: "/post/:postID",
-    element: <Post />,
-    loader:ImgLoading
+    element: (
+      <AuthLayout authentication={true}>
+
+        <Post />
+      </AuthLayout>),
+    loader: ImgLoading
   }
 
 

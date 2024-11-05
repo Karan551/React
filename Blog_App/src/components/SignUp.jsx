@@ -7,11 +7,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from 'react-router-dom';
 import { FaInfoCircle } from "react-icons/fa";
 
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function SignUp() {
   const [errMsg, setErrMsg] = useState("");
   const [pwdFocus, setPwdFocus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
@@ -23,28 +23,37 @@ export default function SignUp() {
     }
   }, 2000);
 
-  // TODO: to add instructions for user in password section
+  // TOD: to add instructions for user in password section
 
   const handleSignUp = async (data) => {
     try {
+      setLoading(true);
+
       console.log("this is data::", data);
       const user = await authService.createAccount(data);
-
+     
       if (user) {
         const userData = await authService.getCurrentUser();
+        console.log("this is userdata:: in signup::", userData);
         if (userData) {
           dispatch(login(userData));
-          //  Here we will navigate to '/' component via router
+          setLoading(false);
           navigate("/");
         }
       }
     } catch (error) {
       console.log("Error in Signup component::", error.message);
       setErrMsg(error.message);
+      setLoading(false);
     }
 
   };
-  console.log("This is pwdFocus::", pwdFocus);
+
+  if (loading)
+    return <h1 className='text-3xl grid place-content-center bg-white p-4  min-h-screen'>
+      <span className='spinner mx-auto'></span>
+    </h1>;
+
   return (
     <section className="flex items-center justify-center">
 
@@ -54,11 +63,13 @@ export default function SignUp() {
       >
         <h2 className="text-center text-4xl font-bold leading-tight text-white">Create Your account</h2>
 
-        {errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <p className="text-center py-2">{errMsg} </p> <span
-          className="cursor-pointer shadow-xl text-center px-4 py-2 bg-white text-black rounded-full"
+        {errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <div className="text-center py-2">{errMsg} </div> <div
+          className="flex justify-center items-center cursor-pointer shadow-xl px-4 py-2 bg-white text-black rounded-full w-10 h-10"
           role='button'
           onClick={() => setErrMsg("")}
-        >X</span></div>}
+        >X</div>
+
+        </div>}
 
         <form className="bg-gray-100/80 px-6 py-4 mt-4 mb-2 rounded-lg backdrop-blur-sm max-w-2xl w-full mx-auto border border-gray-100 md:text-2xl"
           onSubmit={handleSubmit(handleSignUp)}
@@ -98,6 +109,17 @@ export default function SignUp() {
 
           {errors.email && <p role="alert" className="text-white bg-red-500/80 p-2 rounded-lg text-base font-semibold mb-2">{errors.email?.message}</p>}
 
+        {/*   <Input
+            type="tel"
+            placeholder="Enter Your Phone number :"
+            label="Number :"
+            cssClass="mb-4"
+            maxLength="10"
+            {...register("phone", {
+              required: true
+            })}
+          />
+ */}
           <Input
             type="password"
             placeholder="Enter Your Password :"

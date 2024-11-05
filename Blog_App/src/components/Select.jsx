@@ -8,7 +8,7 @@ function Select(
     const id = useId();
     return (
         <section className="w-full">
-            {label && <label htmlFor={id}>{label}</label>}
+            {label && <label className="text-lg md:text-2xl" htmlFor={id}>{label}</label>}
             <select
                 id={id}
                 className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:ring-1 focus:ring-indigo-600 duration-200 border border-gray-200 w-full ${cssClass}`}

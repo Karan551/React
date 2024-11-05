@@ -27,14 +27,14 @@ function App() {
 
   }, []);
 
-  // TODO: review css 37
+  // TODO review css 37
   return !loading ? (
 
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+    <div className="min-h-screen flex flex-wrap md:content-between bg-gray-400 w-full">
       <div className="w-full">
         <Header />
         
-        <main className={navigation.state === "loading" ? "loading" : "" + "text-2x"}>
+        <main className={navigation.state === "loading" ? "loading" : "" + "text-lg md:text-2xl"}>
           <Outlet />
         </main>
 

@@ -10,23 +10,32 @@ import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
     const [errMsg, setErrMsg] = useState("");
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+
     const login = async (data) => {
         try {
             console.log("this is data::", data);
+            setLoading(true);
+            const { email } = data;
+
+            // ------------
 
             const session = await authService.login(data);
             console.log("this is session in login :: ", session);
             if (session) {
                 const userData = await authService.getCurrentUser();
                 console.log("this is userdata in login::", userData);
-
+                // ---------
+                const result = await authService.checkUser(email);
+                console.log("this is result of appwrite::", result);
+                // ---------
                 if (userData) {
                     dispatch(blogLogin(userData));
-
+                    setLoading(false);
                     // To show notification
                     toast.success("Login Succesfully.", {
                         duration: 2000,
@@ -47,10 +56,14 @@ export default function Login() {
         } catch (error) {
             console.log("Error in Login Component::", error.message);
             setErrMsg(error.message);
+            setLoading(false);
         }
 
     };
-
+    if (loading)
+        return <h1 className='text-3xl grid place-content-center bg-white p-4  min-h-screen'>
+            <span className='spinner mx-auto'></span>
+        </h1>;
     return (
         <section className="flex items-center justify-center w-full">
 
@@ -66,11 +79,13 @@ export default function Login() {
                 </div>
                 <h2 className="text-center text-4xl font-bold leading-tight text-white">Sign in to your account</h2>
 
-                {errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <p className="text-center py-2">{errMsg} </p> <span
-                    className="cursor-pointer shadow-xl text-center px-4 py-2 bg-white text-black rounded-full"
+                {errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <div className="text-center py-2">{errMsg} </div> <div
+                    className="flex justify-center items-center cursor-pointer shadow-xl px-4 py-2 bg-white text-black rounded-full w-10 h-10"
                     role='button'
                     onClick={() => setErrMsg("")}
-                >X</span></div>}
+                >X</div>
+
+                </div>}
 
                 <form className="bg-gray-100/80 p-4 my-6 rounded-lg backdrop-blur-sm max-w-lg w-full mx-auto border border-gray-100 text-base md:text-2xl"
                     onSubmit={handleSubmit(login)}
@@ -99,7 +114,17 @@ export default function Login() {
                         label="Password :"
                         cssClass="mb-4"
                         autoComplete="current-password"
-                        {...register("password", { required: "Password is required." })}
+                        {...register("password", {
+                            required: "Password is required.",
+                            pattern: {
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/,
+
+                                message: `8 to 24 characters. Must include uppercase and lowercase letters a number and a special character. 
+                          Allowed special characters
+                         ! @ # $ %`
+                            }
+
+                        })}
 
                         aria-invalid={errors.password ? "true" : "false"}
                     />
@@ -115,6 +140,7 @@ export default function Login() {
                         children={"Login"}
                         bgColor='bg-teal-500'
                     />
+                    <div className='text-right'><Link to={"/forgot-password"} className='hover:underline text-blue-500 font-semibold text-lg md:text-xl'>Forgot Password</Link></div>
 
                     <p className="my-2 text-center text-xl text-black">Don't Have an account ? Sign Up <Link to="/signup" className="hover:underline text-blue-500 hover:text-blue-700">Here</Link></p>
                 </form>

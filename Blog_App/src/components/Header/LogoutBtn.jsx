@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import authService from "../../appwrite/auth";
 import { useDispatch } from 'react-redux';
-
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { logout as userLogout } from "../../features/blog/blogSlice";
 
 export default function LogoutBtn() {
-    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     const handleLogout = () => {
@@ -14,7 +12,8 @@ export default function LogoutBtn() {
             .then((response) => {
                 if (response.status) {
                     dispatch(userLogout());
-                    console.log("This is data returned by loggout::", response);
+               
+                    // console.log("This is data returned by loggout::", response);
 
                     toast.success("Logout Succesfully.", {
                         duration: 1500,

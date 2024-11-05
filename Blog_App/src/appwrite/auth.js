@@ -1,5 +1,5 @@
 import { conf } from '../conf/config';
-import { Client, Account, ID } from 'appwrite';
+import { Client, Account, ID, Query } from 'appwrite';
 
 // To create a class
 class AuthService {
@@ -18,9 +18,10 @@ class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
 
-            //  here we will work more
+            console.log("This is user account :: in Appwrite service::", userAccount);
+
             if (userAccount) {
-                return this.login(email, password);
+                return this.login({ email, password });
             } else {
                 return userAccount;
             }
@@ -59,6 +60,27 @@ class AuthService {
             // TODO: check again
         }
         return null;
+    }
+
+    async checkUser(email) {
+        try {
+            return this.account.listIdentities(
+                [
+                    Query.select("email", email)
+                ]
+            );
+        } catch (error) {
+            console.log("Error in appwrite service :: checkuser::", error.message);
+        }
+    }
+
+    async phoneLogin({ phoneNumber }) {
+        try {
+            const token = this.account.createPhoneToken(ID.unique(), phoneNumber);
+            return token.userId;
+        } catch (error) {
+            console.log("Error in appwrite service :: phone Login::", error.message);
+        }
     }
 };
 

@@ -42,11 +42,11 @@ export default function Header() {
         },
     ];
     return (
-        <header className={"py-3 shadow bg-gray-500 text-white font-semibold text-base md:text-xl"}>
+        <header className={"py-3 shadow bg-gray-500 text-white font-semibold text-base w-full  md:text-xl"}>
             <Container>
                 <ToastContainer />
 
-                <nav className="flex">
+                <nav className="flex justify-center">
                     <div className="md:mr-4 hidden md:block">
                         <Link to="/">
                             <Logo />
@@ -58,7 +58,7 @@ export default function Header() {
                             navItems.map((eachItem) => (
                                 eachItem.active ?
                                     <li key={eachItem.name}>
-                                        <button className='inline-bock px-6 py-2 duration-200 hover:bg-blue-500 rounded-full'
+                                        <button className='inline-bock px-3 text-lg md:text-xl md:px-6 py-2 duration-200 hover:bg-blue-500 rounded-full'
                                             onClick={() => navigate(eachItem.slug)}
                                         >{eachItem.name}</button>
                                     </li>

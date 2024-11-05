@@ -41,7 +41,7 @@ export default function Post() {
             navigate("/");
         }
 
-    }, [postID]);
+    }, [postID,navigate]);
 
 
     console.log("This is post in ::", posts);
@@ -106,10 +106,11 @@ export default function Post() {
                         <div className="w-full mb-4">
                             <h1 className="text-2xl font-bold">Title :- {posts.title}</h1>
                         </div>
-                        
+
                         <div className="text-lg w-full">
-                            <p className='font-semibold text-xl md:text-2xl'> Content :</p>
-                            <p className='py-2'>  {parse(String(posts.content))}</p>
+
+                            <div className='font-semibold text-xl md:text-2xl'> Content :</div>
+                            <div className='py-2'>  {parse(String(posts.content))}</div>
                         </div>
                     </section>
                 </section>
