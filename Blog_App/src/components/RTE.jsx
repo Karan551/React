@@ -5,8 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 
 
 
-export default function RTE({ label, name, control, defaultValues = "" }) {
-
+export default function RTE({ label, name, control, defaultValue = "" }) {
 
     return (
         <section className="w-full my-2 ">
@@ -17,10 +16,9 @@ export default function RTE({ label, name, control, defaultValues = "" }) {
             <Controller
                 name={name || "content"}
                 control={control}
-                initialValue={defaultValues}
                 render={({ field: { onChange } }) => (
                     <Editor
-
+                        initialValue={defaultValue}
                         apiKey={conf.tinyMceApiKey}
                         init={{
                             selector: "textarea",
@@ -30,8 +28,6 @@ export default function RTE({ label, name, control, defaultValues = "" }) {
                                 'searchreplace', 'table', 'wordcount', 'preview', 'media', 'pagebreak', 'fullscreen', 'emoticons', 'code', 'codesample', 'insertdatetime', 'charmap',],
 
                             toolbar: ' blocks | fontfamily|fontsizeinput|alignleft aligncenter alignright alignjustify|bold italic underline strikethrough |forecolor backcolor | bullist numlist outdent indent ',
-                            // height: 400,
-                            // width: 840,
                             // height: "100%",
                             width: "100%",
                             menubar: true,
@@ -44,8 +40,6 @@ export default function RTE({ label, name, control, defaultValues = "" }) {
 
                             font_size_input_default_unit: "px",
                             statusbar: false,
-
-
 
                         }}
                         onEditorChange={onChange}

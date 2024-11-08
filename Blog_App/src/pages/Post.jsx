@@ -41,7 +41,7 @@ export default function Post() {
             navigate("/");
         }
 
-    }, [postID,navigate]);
+    }, [postID, navigate]);
 
 
     console.log("This is post in ::", posts);
@@ -62,7 +62,9 @@ export default function Post() {
 
 
     if (loading)
-        return <h1>Post Loading....</h1>;
+        return <h1 className='text-3xl grid place-content-center bg-white p-4  min-h-screen'>
+            <span className='spinner mx-auto'></span>
+        </h1>;
     return posts ? (
         <div className='py-8'>
 

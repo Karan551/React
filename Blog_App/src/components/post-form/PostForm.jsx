@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, Suspense } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
 import dbService from "../../appwrite/dbConfig";
@@ -8,29 +8,23 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function PostForm({ post }) {
-
-    console.log("this is post in post form::", post);
-    // console.log("this is post in post title::", post?.title);
-
-    const { handleSubmit, register, control, getValues, setValue, watch } = useForm({
+    const [loading, setLoading] = useState(false);
+    const { handleSubmit, register, control, getValues, setValue, watch, reset } = useForm({
         defaultValues: {
             title: post?.title || "",
             slug: post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
-        }
+        },
     });
+
 
     const userData = useSelector((state) => state.myblog.userData);
     const navigate = useNavigate();
-    console.log("This is user data::", userData);
+
 
     const onSubmit = async (data) => {
-
-        // console.log("form is submitted.");
-        // console.log("this is data in form::", data);
-        // console.log("This is image ::", data['image'][0]);
-        // console.log("This is image ::???", data['image'][0]?.name);
+        setLoading(true);
 
         // if post is already then do this (To update a post)
         console.log('this is post to update post:::-', post);
@@ -50,6 +44,7 @@ export default function PostForm({ post }) {
             if (dbPost) {
                 // TODO to navigate user via react-router
                 navigate(`/post/${dbPost.$id}`);
+                setLoading(false);
             }
 
         } else {
@@ -57,22 +52,16 @@ export default function PostForm({ post }) {
 
             const file = await dbService.uploadFile(data["image"][0]);
 
-
-
-            // console.log("this is data:: ---for creating post::", data);
-
             if (file) {
                 const fileID = file.$id;
                 data.featuredImage = fileID;
-
-                // console.log("this is data:: ???---??? for creating post::", data);
 
                 const dbPost = await dbService.createPost({ ...data, userId: userData?.$id });
 
                 // console.log("this is dbPost for new post::", dbPost);
 
                 if (dbPost) {
-
+                    setLoading(false);
                     navigate(`/post/${dbPost.$id}`);
                 }
             }
@@ -80,6 +69,17 @@ export default function PostForm({ post }) {
 
     };
 
+    // To change edit form after loading component
+    useEffect(() => {
+        if (post) {
+            reset({
+                title: post?.title || '',
+                slug: post?.$id || '',
+                content: post?.content || '',
+                status: post?.status || 'active',
+            });
+        }
+    }, [post, reset]);
 
 
     const slugTransForm = useCallback((value) => {
@@ -109,7 +109,10 @@ export default function PostForm({ post }) {
     }, [watch, setValue, slugTransForm]);
 
 
-
+    if (loading)
+        return <h1 className='text-3xl grid place-content-center bg-white p-4  min-h-screen'>
+            <span className='spinner mx-auto'></span>
+        </h1>;
     return (
         <form className="flex flex-wrap my-2 bg-gray-200 px-4 py-2 max-w-7xl rounded-lg space-x-6 w-full"
 
@@ -122,7 +125,6 @@ export default function PostForm({ post }) {
                     label="Title :"
                     placeholder="Enter Your Blog Title:"
                     cssClass="mb-4 text-lg md:text-2xl"
-
                     {...register("title", {
                         required: true
                     })}
@@ -132,11 +134,10 @@ export default function PostForm({ post }) {
                     label="Slug :"
                     placeholder="Enter Your Slug:"
                     cssClass="mb-4 text-lg md:text-2xl"
-
                     {...register("slug", { required: true })}
 
                     onInput={(e) => setValue("slug", slugTransForm(e.currentTarget.value), { shouldValidate: true })}
-                    
+
 
                 />
                 <div className='w-full'>
@@ -144,7 +145,7 @@ export default function PostForm({ post }) {
                         label="Content :"
                         name="content"
                         control={control}
-                        defaultValues={getValues("content")}
+                        defaultValue={getValues("content")}
                     />
                 </div>
             </div>
@@ -153,7 +154,7 @@ export default function PostForm({ post }) {
                 <Input
                     label="Featured Image:"
                     type="file"
-                    accept=".png, .jpg, .jpeg, .gif "
+                    accept=".png, .jpg, .jpeg, .gif"
                     cssClass="mb-4"
                     {...register("image", { required: true })}
                 />
@@ -166,8 +167,8 @@ export default function PostForm({ post }) {
 
                 />
                 <Button
-                    children={"Post"}
-                    cssClass="w-full text-lg md:text-2xl"
+                    children={post ? "Edit Post" : "Post"}
+                    cssClass={`w-full text-lg md:text-2xl ${post ? "bg-teal-500" : ""}`}
                     type="submit"
                 />
             </div>

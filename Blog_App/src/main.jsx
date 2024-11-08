@@ -5,12 +5,12 @@ import App from './App.jsx';
 import { Provider } from "react-redux";
 import store from './app/store.js';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from './pages/Home.jsx';
+import Home, { postLoading } from './pages/Home.jsx';
 import AllPost from './pages/AllPost.jsx';
 import AddPost from './pages/AddPost.jsx';
-import EditPost from './pages/EditPost.jsx';
+import EditPost, { currentPost } from './pages/EditPost.jsx';
 import Post from './pages/Post.jsx';
-import { Protected as AuthLayout, Login, SignUp,ForgotPwd } from "./components/index.js";
+import { Protected as AuthLayout, Login, SignUp, ForgotPwd } from "./components/index.js";
 import { ImgLoading } from './pages/Post.jsx';
 
 
@@ -19,7 +19,8 @@ const router = createBrowserRouter([{
   element: <App />,
   children: [{
     path: "/",
-    element: <Home />
+    element: <Home />,
+    loader: postLoading,
   },
   {
     path: "/login",
@@ -62,7 +63,8 @@ const router = createBrowserRouter([{
       <AuthLayout authentication={true}>
         <EditPost />
       </AuthLayout>
-    )
+    ),
+    loader: currentPost,
   },
 
   {

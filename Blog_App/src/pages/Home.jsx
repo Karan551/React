@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Container, PostCard } from "../components/index";
 import dbService from "../appwrite/dbConfig";
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+
+export async function postLoading() {
+    const allPosts = await dbService.showPosts();
+    return  allPosts ;
+}
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
+    const loaderResult = useLoaderData();
     const isLoggedIn = useSelector((state) => state.myblog.status);
-    console.log("user logged in ::", isLoggedIn);
+
+    // console.log("Loader result ::", loaderResult);
 
     useEffect(() => {
-        dbService.showPosts()
-            .then((eachPost) => {
-                if (eachPost) {
-                    console.log("this is each post in Home ::", eachPost);
-                    setPosts(eachPost.documents);
-                }
-            })
-            .catch((error) => console.log("Error in show posts in Home ::", error.message));
-
-    }, []);
+        if(loaderResult){
+            setPosts(loaderResult.documents)
+        }
+      
+    }, [posts]);
 
     if (posts.length == 0 || !isLoggedIn) {
         return <div className="w-full py-2 mt-4 text-center">

@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
 import { Container, PostForm } from "../components/index";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLoaderData } from "react-router-dom";
 import dbService from "../appwrite/dbConfig";
 
+export async function currentPost({ params }) {
+    const { postID } = params;
+    const editPost = await dbService.getPost(postID);
+    return { postID, editPost };
+}
 
 export default function EditPost() {
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
-    const { postID } = useParams();
+    // const { postID } = useParams();
+    const { postID, editPost } = useLoaderData();
+    console.log("This data come from loader::", editPost);
 
     useEffect(() => {
         if (postID) {
-            dbService.getPost(postID)
-                .then((eachPost) => setPost(eachPost))
-                .catch(() => console.log("Appwrite service getpost error::", error.message));
+            setPost(editPost);
+            // dbService.getPost(postID)
+            //     .then((eachPost) => setPost(eachPost))
+            //     .catch(() => console.log("Appwrite service getpost error::", error.message));
         } else {
             navigate("/");
         }
-    }, [postID]);
-    console.log("this is post in edit post::", post);
+    }, [postID, navigate]);
+    console.log("this is post in edit post id::", postID);
     return post ? (
         <div className='py-8'>
             <Container>

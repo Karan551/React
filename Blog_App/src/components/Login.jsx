@@ -30,8 +30,8 @@ export default function Login() {
                 const userData = await authService.getCurrentUser();
                 console.log("this is userdata in login::", userData);
                 // ---------
-                const result = await authService.checkUser(email);
-                console.log("this is result of appwrite::", result);
+                // const result = await authService.checkUser(email);
+                // console.log("this is result of appwrite::", result);
                 // ---------
                 if (userData) {
                     dispatch(blogLogin(userData));
