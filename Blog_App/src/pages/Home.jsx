@@ -15,7 +15,6 @@ export default function Home() {
     const loaderResult = useLoaderData();
     const isLoggedIn = useSelector((state) => state.myblog.status);
 
-    // console.log("Loader result ::", loaderResult);
 
     useEffect(() => {
         if(loaderResult){

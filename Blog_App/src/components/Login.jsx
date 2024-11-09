@@ -18,24 +18,15 @@ export default function Login() {
 
     const login = async (data) => {
         try {
-            console.log("this is data::", data);
             setLoading(true);
-            const { email } = data;
-
-            // ------------
 
             const session = await authService.login(data);
-            console.log("this is session in login :: ", session);
             if (session) {
                 const userData = await authService.getCurrentUser();
-                console.log("this is userdata in login::", userData);
-                // ---------
-                // const result = await authService.checkUser(email);
-                // console.log("this is result of appwrite::", result);
-                // ---------
                 if (userData) {
                     dispatch(blogLogin(userData));
                     setLoading(false);
+                    
                     // To show notification
                     toast.success("Login Succesfully.", {
                         duration: 2000,
@@ -140,7 +131,14 @@ export default function Login() {
                         children={"Login"}
                         bgColor='bg-teal-500'
                     />
-                    <div className='text-right'><Link to={"/forgot-password"} className='hover:underline text-blue-500 font-semibold text-lg md:text-xl'>Forgot Password</Link></div>
+                    <div className='flex flex-col justify-center space-y-3 items-center'>
+
+                        <Link to={"/forgot-password"} className='hover:underline text-blue-500 font-semibold text-lg md:text-xl'>Login With Contact Number</Link>
+
+                        <Link to={"/email-login"} className='hover:underline text-blue-500 font-semibold text-lg md:text-xl'>Login With Email Address</Link>
+
+
+                    </div>
 
                     <p className="my-2 text-center text-xl text-black">Don't Have an account ? Sign Up <Link to="/signup" className="hover:underline text-blue-500 hover:text-blue-700">Here</Link></p>
                 </form>

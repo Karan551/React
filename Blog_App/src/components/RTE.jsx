@@ -1,7 +1,7 @@
 import React from 'react';
 import { conf } from "../conf/config";
 import { Editor } from "@tinymce/tinymce-react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 
 
@@ -23,7 +23,6 @@ export default function RTE({ label, name, control, defaultValue = "" }) {
                         init={{
                             selector: "textarea",
                             placeholder: "Write Your Content Here...",
-                            // content_css: '../index.css',
                             plugins: ['advlist', 'anchor', 'autolink', 'help', 'image', 'link', 'lists',
                                 'searchreplace', 'table', 'wordcount', 'preview', 'media', 'pagebreak', 'fullscreen', 'emoticons', 'code', 'codesample', 'insertdatetime', 'charmap',],
 

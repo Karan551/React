@@ -13,6 +13,7 @@ import PostForm from "./post-form/PostForm";
 import PostCard from "./PostCard";
 import Protected from "./AuthLayout";
 import ForgotPwd from "./ForgotPwd";
+import EmailLogin from "./EmailLogin";
 
 
 export {
@@ -30,5 +31,6 @@ export {
     PostForm,
     PostCard,
     Protected,
-    ForgotPwd
+    ForgotPwd,
+    EmailLogin,
 };

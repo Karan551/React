@@ -12,7 +12,6 @@ const blogSlice = createSlice({
         login: (state, action) => {
 
             state.status = true;
-            // console.log("this is payload::", action.payload);
             state.userData = action.payload;
         },
         logout: (state) => {

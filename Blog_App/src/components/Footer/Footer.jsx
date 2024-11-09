@@ -1,9 +1,10 @@
 import Logo from "../Logo";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
 
-        // TODO: add logo component and Link
+        
         <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
             <div className="relative z-10 mx-auto max-w-7xl px-4">
                 <div className="-m-6 flex flex-wrap">
@@ -30,11 +31,12 @@ export default function Footer() {
                                 Company
                             </h3>
                             <ul>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Features</a></li>
+                                <li className="mb-4">
+                                    <Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Features</Link></li>
 
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Pricing</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Affilate Program</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Press Kit</a></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Pricing</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Affilate Program</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Press Kit</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -47,11 +49,11 @@ export default function Footer() {
                                 Support
                             </h3>
                             <ul>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Account</a></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Account</Link></li>
 
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Help</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Contact Us</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Customer Support</a></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Help</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Contact Us</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Customer Support</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -64,11 +66,11 @@ export default function Footer() {
                                 Legals
                             </h3>
                             <ul>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Terms &amp; Conditions</a></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Terms &amp; Conditions</Link></li>
 
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Privacy Policy</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Affilate Program</a></li>
-                                <li className="mb-4"><a href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Licensing</a></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Privacy Policy</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700">Affilate Program</Link></li>
+                                <li className="mb-4"><Link href="#" className=" text-base font-medium text-gray-900 hover:text-gray-700"> Licensing</Link></li>
                             </ul>
                         </div>
                     </div>

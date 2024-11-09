@@ -12,7 +12,7 @@ export default function Protected({ children, authentication = true }) {
 
     useEffect(() => {
 
-        // TODO: we will come back here ::
+        //  ----- ::
         if (authentication && authStatus !== authentication) {
             navigate("/login");
         } else if (!authentication && authStatus !== authentication) {

@@ -27,7 +27,6 @@ function App() {
 
   }, []);
 
-  // TODO review css 37
   return !loading ? (
 
     <div className="min-h-screen flex flex-wrap md:content-between bg-gray-400 w-full">

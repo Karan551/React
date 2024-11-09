@@ -28,7 +28,7 @@ class AuthService {
 
         } catch (error) {
             console.log("Error in account creation :: ", error);
-            throw new Error(error);
+            throw new Error(error.message);
         }
     }
 
@@ -37,7 +37,7 @@ class AuthService {
             return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             console.log("Error in account login :: ", error);
-            throw new Error(error);
+            throw new Error(error.message);
         }
     }
 
@@ -62,24 +62,46 @@ class AuthService {
         return null;
     }
 
-    async checkUser(email) {
+    // ------------------------------
+    async getPhoneOtp(phoneNumber) {
         try {
-            return this.account.listIdentities(
-                [
-                    Query.select("email", email)
-                ]
-            );
+            console.log("this is phone number in appwrite service::", phoneNumber);
+            const token = this.account.createPhoneToken(ID.unique(), phoneNumber);
+            return token;
         } catch (error) {
-            console.log("Error in appwrite service :: checkuser::", error.message);
+            console.log("Error in appwrite service :: getPhoneOtp::", error.message);
+            throw new Error(error.message);
+
         }
     }
 
-    async phoneLogin({ phoneNumber }) {
+    async phoneLogin(userID, otp) {
         try {
-            const token = this.account.createPhoneToken(ID.unique(), phoneNumber);
-            return token.userId;
+            const session = this.account.createSession(userID, otp);
+            return session;
         } catch (error) {
             console.log("Error in appwrite service :: phone Login::", error.message);
+            throw new Error(error.message);
+
+        }
+    }
+
+    async emailOtp(email) {
+        try {
+            const session = this.account.createEmailToken(ID.unique(), email, true);
+            return session;
+        } catch (error) {
+            console.log("Error in appwrite service :: Email OTP::", error.message);
+            throw new Error(error.message);
+        }
+    }
+
+    async emailLogin(userID, otp) {
+        try {
+            return this.account.createSession(userID, otp);
+        } catch (error) {
+            console.log("Error in appwrite service :: Email Login::", error.message);
+            throw new Error(error.message);
         }
     }
 };

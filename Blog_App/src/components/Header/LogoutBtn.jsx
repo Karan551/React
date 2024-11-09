@@ -13,8 +13,6 @@ export default function LogoutBtn() {
                 if (response.status) {
                     dispatch(userLogout());
                
-                    // console.log("This is data returned by loggout::", response);
-
                     toast.success("Logout Succesfully.", {
                         duration: 1500,
                         position: "top-center",

@@ -1,44 +1,33 @@
 import React, { useState, useRef } from 'react';
 import { Input, Button } from "./index";
+import authService from "../appwrite/auth";
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { login as blogLogin } from "../features/blog/blogSlice";
-
-import { useNavigate } from 'react-router-dom';
-import authService from "../appwrite/auth";
-import ReactCountryDropdown from "react-country-dropdown";
 import { useDispatch } from 'react-redux';
 
-export default function ForgotPwd() {
 
-    const [loading, setLoading] = useState(false);
+
+export default function EmailLogin() {
     const [errMsg, setErrMsg] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [countryCode, setCountryCode] = useState("+91");
+    const [userEmail, setUserEmail] = useState("");
+    const [btnDisable, setBtnDisable] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const [userID, setUserID] = useState(null);
     const [secret, setSecret] = useState("");
 
-    const [userID, setUserID] = useState("");
-
+    const inputRef = useRef();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
-    const [btnDisable, setBtnDisable] = useState(false);
-    const inputRef = useRef();
-
-
-    const handleCountryChange = (country) => {
-        setCountryCode(`+${country.callingCodes[0]}`);
-    };
-    const handleOtp = async () => {
-        console.log("this is phone number after submit::", phoneNumber);
-        setBtnDisable(true);
+    const handleOTP = async () => {
         inputRef.current.focus();
-
-
-        const response = await authService.getPhoneOtp((countryCode + phoneNumber));
-        console.log("this is result of appwrite handle otp::", response);
+        setBtnDisable(true);
+        const response = await authService.emailOtp(userEmail);
         if (response) {
             setUserID(response?.userId);
+
             // To show notification
             toast.success("OTP send Succesfully.", {
                 duration: 2000,
@@ -51,16 +40,13 @@ export default function ForgotPwd() {
                 },
             });
         }
-
     };
 
     const handleLogin = async () => {
         setLoading(true);
-        const session = await authService.phoneLogin(userID, secret);
-        console.log("this is result of appwrite phone login::", session);
+        const session = await authService.emailLogin(userID, secret);
         if (session) {
             const userData = await authService.getCurrentUser();
-            console.log("this is userdata in login::", userData);
 
             if (userData) {
                 dispatch(blogLogin(userData));
@@ -81,7 +67,6 @@ export default function ForgotPwd() {
                 navigate("/");
             }
         }
-
     };
 
     if (loading)
@@ -90,53 +75,36 @@ export default function ForgotPwd() {
         </h1>;
     return (
         <section className="flex items-center justify-center w-full">
-
             <div className="mx-auto flex items-center justify-center flex-col w-full max-w-lg md:max-w-2xl bg-gray-100 rounded-xl px-5  py-3 border border-black/50 my-3 bg-cover bg-no-repeat"
 
                 style={{ backgroundImage: `url("https://cdn.pixabay.com/photo/2021/08/07/19/49/cosmea-6529220_960_720.jpg")` }}
             >
+                <h2 className="text-center text-4xl font-bold leading-tight text-white">Login With Email:-</h2>
 
+                {
+                    errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <div className="text-center py-2">{errMsg} </div> <div
+                        className="flex justify-center items-center cursor-pointer shadow-xl px-4 py-2 bg-white text-black rounded-full w-10 h-10"
+                        role='button'
+                        onClick={() => setErrMsg("")}
+                    >X</div>
 
-                <h2 className="text-center text-4xl font-bold leading-tight text-white">Login With Contact Number:-</h2>
-
-                {errMsg && <div className="flex justify-between bg-red-500 w-full px-4 py-2 text-white rounded-lg my-2"> <div className="text-center py-2">{errMsg} </div> <div
-                    className="flex justify-center items-center cursor-pointer shadow-xl px-4 py-2 bg-white text-black rounded-full w-10 h-10"
-                    role='button'
-                    onClick={() => setErrMsg("")}
-                >X</div>
-
-                </div>}
+                    </div>
+                }
 
                 <div className="bg-gray-100/80 p-4 my-6 rounded-lg backdrop-blur-sm max-w-lg w-full mx-auto border border-gray-100 text-base md:text-2xl"
                 >
-                    <form onSubmit={(e) => (e.preventDefault(), handleOtp())} >
+                    <form onSubmit={(e) => (e.preventDefault(), handleOTP())}>
+                        <Input
+                            type="email"
+                            placeholder="Enter Your Email :"
+                            label="Email :"
+                            cssClass="mb-4"
+                            autoComplete="username"
+                            required
+                            value={userEmail}
+                            onChange={(e) => setUserEmail(e.target.value)}
 
-                        <div className="flex flex-col md:flex-row justify-between bg-white px-2 rounded-lg">
-                            <div className='relative w-24 h-24 ml-1'>
-                                <div className='absolute top-[50%]'>
-                                    <ReactCountryDropdown
-                                        defaultCountry="IN"
-                                        onSelect={handleCountryChange}
-
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <Input
-                                    type="tel"
-                                    placeholder="Enter Your Number :"
-                                    label="Phone Number :"
-                                    labelCss="md:ml-8 mt-1"
-                                    cssClass="md:ml-9 mb-2 !p-[10px] md:!w-[90%] w-full md:self-end"
-                                    autoComplete="username"
-                                    required={true}
-                                    maxLength={10}
-
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
-                            </div>
-                        </div>
+                        />
 
                         <Button
                             cssClass="my-2 cursor-pointer w-[40%] md:w-1/4 text-sm md:text-lg px-4 text-center font-semibold disabled:text-gray-400/70 disabled:bg-gray-500 disabled:cursor-not-allowed"
@@ -146,7 +114,6 @@ export default function ForgotPwd() {
                             disabled={btnDisable}
                         />
                     </form>
-
 
                     <form onSubmit={(e) => (e.preventDefault(), handleLogin())}>
                         <Input

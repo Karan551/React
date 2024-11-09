@@ -10,10 +10,7 @@ import LogoutBtn from "./LogoutBtn";
 export default function Header() {
     const authStatus = useSelector((state) => state.myblog.status);
     const navigate = useNavigate();
-    const navigation = useNavigation();
 
-    // console.log("this is auth status::", authStatus);
-    // TODO: To navigate user via onclick
     const navItems = [
         {
             name: 'Home',

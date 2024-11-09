@@ -27,9 +27,7 @@ export default function PostForm({ post }) {
         setLoading(true);
 
         // if post is already then do this (To update a post)
-        console.log('this is post to update post:::-', post);
         if (post) {
-            console.log('this is post to update post:::-', post);
             // To upload a new img file
             const file = await dbService.uploadFile(data["image"][0]);
 
@@ -58,8 +56,6 @@ export default function PostForm({ post }) {
 
                 const dbPost = await dbService.createPost({ ...data, userId: userData?.$id });
 
-                // console.log("this is dbPost for new post::", dbPost);
-
                 if (dbPost) {
                     setLoading(false);
                     navigate(`/post/${dbPost.$id}`);
@@ -84,7 +80,6 @@ export default function PostForm({ post }) {
 
     const slugTransForm = useCallback((value) => {
         if (value && typeof (value) === "string") {
-            console.log("this is your value ::", value);
             return value
                 .trim()
                 .toLowerCase()
@@ -174,9 +169,4 @@ export default function PostForm({ post }) {
             </div>
         </form>
     );
-}
-
-
-function Spinner() {
-    return <h1 className='loader'>Loading...</h1>;
 }

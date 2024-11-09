@@ -2,17 +2,17 @@ import React, { useId, forwardRef } from 'react';
 
 const Input = forwardRef(function Input({
     label,
+    labelCss = "",
     type = "text",
     cssClass = "",
     ...props
 }, ref) {
 
-    // Todo: here we will have to explore more about forward ref.
     const id = useId();
     return (
         <div className='w-full'>
             {
-                label && <label className='inline-block mb-2 pl-1 text-lg md:text-2xl' htmlFor={id}>{label}</label>
+                label && <label className={`inline-block mb-2 pl-1 text-lg md:text-2xl ${labelCss}`} htmlFor={id}>{label}</label>
             }
             {
                 <input

@@ -6,11 +6,11 @@ import { Provider } from "react-redux";
 import store from './app/store.js';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home, { postLoading } from './pages/Home.jsx';
-import AllPost from './pages/AllPost.jsx';
+import AllPost, { showAllPosts } from './pages/AllPost.jsx';
 import AddPost from './pages/AddPost.jsx';
 import EditPost, { currentPost } from './pages/EditPost.jsx';
 import Post from './pages/Post.jsx';
-import { Protected as AuthLayout, Login, SignUp, ForgotPwd } from "./components/index.js";
+import { Protected as AuthLayout, Login, SignUp, ForgotPwd, EmailLogin } from "./components/index.js";
 import { ImgLoading } from './pages/Post.jsx';
 
 
@@ -43,12 +43,17 @@ const router = createBrowserRouter([{
     element: <ForgotPwd />
   },
   {
+    path: "/email-login",
+    element: <EmailLogin />
+  },
+  {
     path: "/all-posts",
     element: (
       <AuthLayout authentication={true}>
         <AllPost />
       </AuthLayout>
-    )
+    ),
+    loader: showAllPosts,
   },
   {
     path: "/add-post",

@@ -125,7 +125,6 @@ class DbService {
     }
 
    async filePreview(fileID) {
-        console.log("this is fileID::in dbConfig", fileID);
         return this.storage.getFilePreview(
             conf.appWriteBucketID,
             fileID

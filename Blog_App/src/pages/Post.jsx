@@ -12,9 +12,7 @@ export async function ImgLoading({ params }) {
     const post = await dbService.getPost(slug);
     return await dbService.filePreview(post?.featuredImage);
 
-
 }
-
 
 export default function Post() {
     const { postID } = useParams();
@@ -43,8 +41,6 @@ export default function Post() {
 
     }, [postID, navigate]);
 
-
-    console.log("This is post in ::", posts);
 
     const deletePost = () => {
         dbService.deletePost(posts.$id)
@@ -88,6 +84,7 @@ export default function Post() {
                                 >
                                     <Button
                                         textColor='text-white'
+                                        cssClass='text-sm md:text-xl'
                                     >
                                         Edit Post
                                     </Button>
@@ -96,7 +93,7 @@ export default function Post() {
                                 <Button
                                     onClick={deletePost}
                                     textColor='text-white'
-                                    cssClass='mx-4 bg-red-500 hover:bg-red-700'
+                                    cssClass='mx-2 md:mx-4 bg-red-500 hover:bg-red-700 text-sm md:text-xl'
                                 >
                                     Delete Post
                                 </Button>

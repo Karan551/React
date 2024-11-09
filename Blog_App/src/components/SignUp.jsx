@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Input, Button, Logo } from "./index";
+import { Input, Button } from "./index";
 import authService from '../appwrite/auth';
 import { login } from "../features/blog/blogSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from 'react-router-dom';
 import { FaInfoCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
+
 
 
 export default function SignUp() {
@@ -23,20 +25,31 @@ export default function SignUp() {
     }
   }, 2000);
 
-  // TOD: to add instructions for user in password section
 
   const handleSignUp = async (data) => {
     try {
       setLoading(true);
 
-      console.log("this is data::", data);
       const user = await authService.createAccount(data);
      
       if (user) {
         const userData = await authService.getCurrentUser();
-        console.log("this is userdata:: in signup::", userData);
+        
         if (userData) {
           dispatch(login(userData));
+
+           // To show notification
+           toast.success("User Created And Login Succesfully.", {
+            duration: 2000,
+            position: "top-center",
+            icon: "✅",
+            className: "flex text-lg md:text-xl font-semibold px-2",
+            ariaProps: {
+                role: "status",
+                "aria-live": "polite",
+            },
+        });
+
           setLoading(false);
           navigate("/");
         }
