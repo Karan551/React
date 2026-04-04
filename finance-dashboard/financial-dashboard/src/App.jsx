@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { loadData, saveData } from './utils/storage';``
 import { transactions as initialData } from './data/mock_data';
 import { Dashboard, Charts, TransactionTable, Insights } from "./Components/index";
 
 export default function App() {
 
-  const [transactions, setTransactions] = useState(initialData);
+  const [transactions, setTransactions] = useState(loadData() || initialData);
 
   const [role, setRole] = useState("viewer");
   const [dark, setDark] = useState(() => {
@@ -12,7 +13,7 @@ export default function App() {
   });
 
 
-
+  useEffect(() => saveData(transactions), [transactions]);
   useEffect(() => {
     const root = document.documentElement;
 

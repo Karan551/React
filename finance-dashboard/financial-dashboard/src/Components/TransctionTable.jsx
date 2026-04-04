@@ -41,17 +41,17 @@ export default function TransactionTable({
           placeholder="Search by category..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border rounded text-black w-full"
+          className="p-2 border rounded text-black w-full dark:placeholder:text-gray-50 dark:text-gray-50 dark:active:border-white"
         />
 
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="p-2 rounded text-black"
+          className="p-2 rounded text-black dark:text-gray-50 border-2"
         >
-          <option value="all">All</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
+          <option value="all" className="dark:text-gray-900">All</option>
+          <option value="income" className="dark:text-gray-900">Income</option>
+          <option value="expense" className="dark:text-gray-900">Expense</option>
         </select>
 
         {role === "admin" && (
