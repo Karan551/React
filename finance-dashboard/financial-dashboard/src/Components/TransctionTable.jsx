@@ -30,6 +30,20 @@ export default function TransactionTable({
     setTransactions([...transactions, newTx]);
   };
 
+  const capitalizeWord = (text) => {
+    if (!text) return "";
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  };
+
+  const capitalizeSentence = (sentence) => {
+    if (!sentence) return "";
+    return sentence
+      .split(" ")
+      .map((eachWord) => capitalizeWord(eachWord))
+      .join(" ");
+  };
+
+
   return (
     <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow mb-4">
 
@@ -87,7 +101,7 @@ export default function TransactionTable({
                 >
                   <td className="py-2 text-sm sm:text-base md:text-lg">{t.date}</td>
                   <td className="font-semibold text-sm sm:text-base md:text-lg">₹{t.amount}</td>
-                  <td className="ttext-sm sm:text-base md:text-lg">{t.category}</td>
+                  <td className="ttext-sm sm:text-base md:text-lg">{capitalizeSentence(t.category)}</td>
                   <td
                     className={
                       ` ${t.type === "income"
@@ -95,7 +109,7 @@ export default function TransactionTable({
                         : "text-red-500"} text-sm sm:text-base md:text-lg`
                     }
                   >
-                    {t.type[0].toLocaleUpperCase() + t.type.slice(1)}
+                    {capitalizeSentence(t.type)}
                   </td>
                 </motion.tr>
               ))
