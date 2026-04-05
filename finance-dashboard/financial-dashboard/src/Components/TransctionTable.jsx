@@ -34,7 +34,7 @@ export default function TransactionTable({
     <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow mb-4">
 
       {/*  Controls */}
-      <div className="flex flex-col md:flex-row gap-2 mb-3">
+      <div className="flex flex-col md:flex-row gap-2 mb-3 items-stretch md:items-center">
 
         <input
           type="text"
@@ -57,7 +57,7 @@ export default function TransactionTable({
         {role === "admin" && (
           <button
             onClick={addTransaction}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded w-full md:w-auto hover:cursor-pointer"
           >
             + Add
           </button>
@@ -66,13 +66,13 @@ export default function TransactionTable({
 
       {/*  Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left">
+        <table className="min-w-full text-left">
           <thead>
             <tr className="border-b">
-              <th className="py-2 text-xl">Date</th>
-              <th className="text-xl">Amount</th>
-              <th className="text-xl">Category</th>
-              <th className="text-xl">Type</th>
+              <th className="py-2 text-sm sm:text-base md:text-lg ">Date</th>
+              <th className="text-sm sm:text-base md:text-lg">Amount</th>
+              <th className="text-sm sm:text-base md:text-lg">Category</th>
+              <th className="text-sm sm:text-base md:text-lg">Type</th>
             </tr>
           </thead>
 
@@ -85,14 +85,14 @@ export default function TransactionTable({
                   animate={{ opacity: 1 }}
                   className="border-b hover:bg-gray-100 dark:hover:bg-gray-700 hover:cursor-pointer"
                 >
-                  <td className="py-2 text-xl">{t.date}</td>
-                  <td className="font-semibold text-xl">₹{t.amount}</td>
-                  <td className="text-xl">{t.category}</td>
+                  <td className="py-2 text-sm sm:text-base md:text-lg">{t.date}</td>
+                  <td className="font-semibold text-sm sm:text-base md:text-lg">₹{t.amount}</td>
+                  <td className="ttext-sm sm:text-base md:text-lg">{t.category}</td>
                   <td
                     className={
                       ` ${t.type === "income"
                         ? "text-green-500"
-                        : "text-red-500"} text-xl`
+                        : "text-red-500"} text-sm sm:text-base md:text-lg`
                     }
                   >
                     {t.type[0].toLocaleUpperCase() + t.type.slice(1)}

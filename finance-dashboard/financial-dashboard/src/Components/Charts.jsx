@@ -2,7 +2,7 @@ import {
   PieChart,
   Pie,
   Tooltip,
-  
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -26,39 +26,47 @@ export default function Charts({ transactions }) {
   );
   console.log('this is expense data', expenseData);
   return (
-    <div className="grid md:grid-cols-2 gap-4 mb-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4" id="charts">
 
       {/*  PIE CHART */}
       <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
         <h2 className="mb-2 font-semibold">Spending Breakdown</h2>
+        <div className="w-full h-64 sm:h-80">
+          <ResponsiveContainer width={"100%"} height={"100%"}>
 
-        <PieChart width={400} height={250} responsive>
-          <Pie
-            data={expenseData}
-            dataKey="value"
-            outerRadius={90}
-            label
-            fill="#37AFDE"
-            isAnimationActive={true}
-            
-          >
-          </Pie>
+            <PieChart width={300} height={250} responsive>
+              <Pie
+                data={expenseData}
+                dataKey="value"
+                outerRadius={80}
+                label
+                fill="#37AFDE"
+                isAnimationActive={true}
 
-          <Tooltip defaultIndex={5}/>
-        </PieChart>
+              >
+              </Pie>
+
+              <Tooltip defaultIndex={2} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       {/*  LINE CHART */}
       <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
         <h2 className="mb-2 font-semibold">Balance Trend</h2>
 
-        <LineChart width={350} height={250} data={transactions} responsive>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="amount" />
-        </LineChart>
+        <div className="w-full h-64 sm:h-80">
+          <ResponsiveContainer width={"100%"} height={"100%"}>
+            <LineChart width={350} height={250} data={transactions} responsive>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="amount" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

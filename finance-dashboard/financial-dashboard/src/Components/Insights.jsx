@@ -27,16 +27,16 @@ export default function Insights({ transactions }) {
   const expense = totalExpenses.reduce((sum, curr) => sum + curr.amount, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
-      <h2 className="font-bold text-lg mb-3">📊 Insights</h2>
+    <div className="w-full max-w-full bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+      <h2 className="font-bold text-lg sm:text-xl md:text-2xl mb-3"> Insights</h2>
 
       {transactions.length === 0 ? (
         <p>No data available</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2 sm:space-y-3 md:space-y-4">
 
           {highest && (
-            <p>
+            <p className="break-words">
               Highest Spending:{" "}
               <span className="font-semibold">
                 {highest[0][0].toUpperCase() + highest[0].slice(1,)} (₹{highest[1]})
