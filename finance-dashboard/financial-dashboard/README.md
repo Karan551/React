@@ -31,8 +31,8 @@ src/
 │── data/
 │   └── mock_data.js
 │
-│── components/
-│   └── PieChart.jsx
+│── Components/
+│   └── Charts.jsx
 │
 │── App.jsx
 │── main.jsx
